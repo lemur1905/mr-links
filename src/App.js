@@ -9,7 +9,9 @@ const mockLinks = [
       { title: 'Why are hospitals so expensive in the US?', url: 'https://example.com/hospital-costs' },
       { title: 'The return of industrial policy', url: 'https://example.com/industrial-policy' },
       { title: 'New data on remote work productivity', url: 'https://example.com/remote-work' },
-      { title: 'The cultural impact of recommendation algorithms', url: 'https://example.com/algorithms-culture' }
+      { title: 'The cultural impact of recommendation algorithms', url: 'https://example.com/algorithms-culture' },
+      { title: 'How do you measure innovation?', url: 'https://example.com/measure-innovation' },
+      { title: 'The psychology of procrastination', url: 'https://example.com/procrastination' }
     ]
   },
   {
@@ -18,7 +20,10 @@ const mockLinks = [
     links: [
       { title: 'Markets in everything: AI-generated music', url: 'https://example.com/ai-music' },
       { title: 'The great stagnation debate revisited', url: 'https://example.com/stagnation' },
-      { title: 'Why are building costs so high?', url: 'https://example.com/building-costs' }
+      { title: 'Why are building costs so high?', url: 'https://example.com/building-costs' },
+      { title: 'The future of space exploration', url: 'https://example.com/space-exploration' },
+      { title: 'Understanding cryptocurrency markets', url: 'https://example.com/crypto-markets' },
+      { title: 'The rise of vertical farming', url: 'https://example.com/vertical-farming' }
     ]
   },
   {
@@ -28,7 +33,69 @@ const mockLinks = [
       { title: 'The future of higher education', url: 'https://example.com/higher-ed' },
       { title: 'New research on immigration and innovation', url: 'https://example.com/immigration-innovation' },
       { title: 'The economics of prediction markets', url: 'https://example.com/prediction-markets' },
-      { title: 'Why did inflation fall so quickly?', url: 'https://example.com/inflation' }
+      { title: 'Why did inflation fall so quickly?', url: 'https://example.com/inflation' },
+      { title: 'The impact of social media on democracy', url: 'https://example.com/social-media-democracy' },
+      { title: 'Climate change adaptation strategies', url: 'https://example.com/climate-adaptation' },
+      { title: 'The neuroscience of decision making', url: 'https://example.com/neuroscience-decisions' }
+    ]
+  },
+  {
+    id: 4,
+    date: '2025-12-29',
+    links: [
+      { title: 'Why are taxes so complicated?', url: 'https://example.com/tax-complexity' },
+      { title: 'The history of central banking', url: 'https://example.com/central-banking' },
+      { title: 'What makes cities vibrant?', url: 'https://example.com/vibrant-cities' },
+      { title: 'The future of nuclear energy', url: 'https://example.com/nuclear-energy' },
+      { title: 'Understanding behavioral economics', url: 'https://example.com/behavioral-econ' }
+    ]
+  },
+  {
+    id: 5,
+    date: '2025-12-28',
+    links: [
+      { title: 'The economics of streaming services', url: 'https://example.com/streaming-economics' },
+      { title: 'Why do some countries grow faster than others?', url: 'https://example.com/growth-rates' },
+      { title: 'The rise of plant-based meat', url: 'https://example.com/plant-based-meat' },
+      { title: 'Understanding quantum computing', url: 'https://example.com/quantum-computing' },
+      { title: 'The future of transportation', url: 'https://example.com/future-transportation' },
+      { title: 'How to fix the housing shortage', url: 'https://example.com/housing-shortage' }
+    ]
+  },
+  {
+    id: 6,
+    date: '2025-12-27',
+    links: [
+      { title: 'The impact of automation on employment', url: 'https://example.com/automation-employment' },
+      { title: 'Why are prescription drugs so expensive?', url: 'https://example.com/drug-prices' },
+      { title: 'The economics of professional sports', url: 'https://example.com/sports-economics' },
+      { title: 'Understanding monetary policy', url: 'https://example.com/monetary-policy' },
+      { title: 'The future of work post-pandemic', url: 'https://example.com/future-work' },
+      { title: 'How do financial bubbles form?', url: 'https://example.com/financial-bubbles' },
+      { title: 'The role of luck in success', url: 'https://example.com/luck-success' }
+    ]
+  },
+  {
+    id: 7,
+    date: '2025-12-26',
+    links: [
+      { title: 'The economics of restaurant pricing', url: 'https://example.com/restaurant-pricing' },
+      { title: 'Why is productivity growth slowing?', url: 'https://example.com/productivity-growth' },
+      { title: 'The future of gene editing', url: 'https://example.com/gene-editing' },
+      { title: 'Understanding trade deficits', url: 'https://example.com/trade-deficits' },
+      { title: 'The psychology of investing', url: 'https://example.com/investing-psychology' }
+    ]
+  },
+  {
+    id: 8,
+    date: '2025-12-25',
+    links: [
+      { title: 'The economics of gift-giving', url: 'https://example.com/gift-giving' },
+      { title: 'Why do monopolies form?', url: 'https://example.com/monopolies' },
+      { title: 'The future of electric vehicles', url: 'https://example.com/electric-vehicles' },
+      { title: 'Understanding income inequality', url: 'https://example.com/income-inequality' },
+      { title: 'The impact of copyright on innovation', url: 'https://example.com/copyright-innovation' },
+      { title: 'How do supply chains work?', url: 'https://example.com/supply-chains' }
     ]
   }
 ];
