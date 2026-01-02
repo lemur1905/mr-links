@@ -1,0 +1,49 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.database import init_db
+from app.routers import links
+
+app = FastAPI(
+    title="MR Links API",
+    description="API for scraping and serving Marginal Revolution Assorted Links",
+    version="1.0.0"
+)
+
+# CORS middleware for React frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
+app.include_router(links.router)
+
+
+@app.on_event("startup")
+async def startup():
+    """Initialize database on startup."""
+    init_db()
+
+
+@app.get("/")
+async def root():
+    """Root endpoint."""
+    return {
+        "message": "MR Links API",
+        "docs": "/docs",
+        "endpoints": {
+            "links": "/api/links",
+            "scrape": "/api/links/scrape",
+            "stats": "/api/links/stats/summary"
+        }
+    }
+
+
+@app.get("/health")
+async def health():
+    """Health check endpoint."""
+    return {"status": "healthy"}
