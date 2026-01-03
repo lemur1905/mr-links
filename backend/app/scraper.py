@@ -1,3 +1,4 @@
+import asyncio
 import httpx
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -169,5 +170,6 @@ async def scrape_all_assorted_links(max_pages: int = 5) -> List[Dict]:
             post["links"] = links
             all_posts.append(post)
             logger.info(f"Scraped: {post['title']} - {len(links)} links")
+            await asyncio.sleep(0.5)  # Be polite to the server
 
     return all_posts

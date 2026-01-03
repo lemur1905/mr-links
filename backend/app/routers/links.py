@@ -67,7 +67,7 @@ async def get_post(post_id: int, db: Session = Depends(get_db)):
 
 @router.post("/scrape", response_model=ScrapeResponse)
 async def scrape_links(
-    pages: int = Query(3, ge=1, le=20),
+    pages: int = Query(3, ge=1, le=50),
     db: Session = Depends(get_db)
 ):
     """Scrape Marginal Revolution for Assorted Links posts."""
