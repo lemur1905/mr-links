@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import init_db
 from app.routers import links
+from app.scheduler import start_scheduler, stop_scheduler
 
 app = FastAPI(
     title="MR Links API",
@@ -25,8 +26,15 @@ app.include_router(links.router)
 
 @app.on_event("startup")
 async def startup():
-    """Initialize database on startup."""
+    """Initialize database and scheduler on startup."""
     init_db()
+    start_scheduler()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    """Stop scheduler on shutdown."""
+    stop_scheduler()
 
 
 @app.get("/")
@@ -38,6 +46,7 @@ async def root():
         "endpoints": {
             "links": "/api/links",
             "scrape": "/api/links/scrape",
+            "rss_update": "/api/links/rss-update",
             "stats": "/api/links/stats/summary"
         }
     }

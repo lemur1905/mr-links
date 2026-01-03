@@ -7,6 +7,7 @@ from app.database import get_db
 from app.models import AssortedLinksPost, Link
 from app.schemas import AssortedLinksPostResponse, LinkResponse, ScrapeResponse
 from app import scraper
+from app import rss_parser
 
 router = APIRouter(prefix="/api/links", tags=["links"])
 
@@ -114,6 +115,59 @@ async def scrape_links(
 
     return ScrapeResponse(
         message=f"Scraping complete",
+        posts_scraped=posts_added,
+        total_links=total_links
+    )
+
+
+@router.post("/rss-update", response_model=ScrapeResponse)
+async def update_from_rss(db: Session = Depends(get_db)):
+    """Fetch new posts from RSS feed.
+
+    More efficient than scraping for getting recent updates.
+    Only fetches posts not already in the database.
+    """
+    # Get existing post URLs to check for duplicates
+    existing_urls = set(
+        url for (url,) in db.query(AssortedLinksPost.post_url).all()
+    )
+
+    # Fetch new posts from RSS
+    new_posts = rss_parser.get_new_posts_from_rss(existing_urls)
+
+    posts_added = 0
+    total_links = 0
+
+    for post_data in new_posts:
+        if not post_data.get("date"):
+            continue
+
+        # Create new post
+        post = AssortedLinksPost(
+            post_url=post_data["url"],
+            post_date=post_data["date"].date(),
+            title=post_data["title"]
+        )
+        db.add(post)
+        db.flush()
+
+        # Add links
+        for link_data in post_data.get("links", []):
+            link = Link(
+                post_id=post.id,
+                title=link_data["title"],
+                url=link_data["url"],
+                link_number=link_data.get("number")
+            )
+            db.add(link)
+            total_links += 1
+
+        posts_added += 1
+
+    db.commit()
+
+    return ScrapeResponse(
+        message="RSS update complete",
         posts_scraped=posts_added,
         total_links=total_links
     )
