@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/links", tags=["links"])
 @router.get("", response_model=List[AssortedLinksPostResponse])
 async def get_links(
     skip: int = Query(0, ge=0),
-    limit: int = Query(50, ge=1, le=100),
+    limit: int = Query(50, ge=1, le=10000),
     search: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
