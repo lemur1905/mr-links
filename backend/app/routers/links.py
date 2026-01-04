@@ -72,7 +72,12 @@ async def scrape_links(
     db: Session = Depends(get_db)
 ):
     """Scrape Marginal Revolution for Assorted Links posts."""
-    posts_data = await scraper.scrape_all_assorted_links(max_pages=pages)
+    # Get existing post URLs to avoid re-scraping
+    existing_urls = set(
+        url for (url,) in db.query(AssortedLinksPost.post_url).all()
+    )
+
+    posts_data = await scraper.scrape_all_assorted_links(max_pages=pages, existing_urls=existing_urls)
 
     posts_added = 0
     total_links = 0

@@ -156,20 +156,45 @@ async def scrape_post_links(post_url: str) -> List[Dict[str, str]]:
     return extract_links_from_post(html)
 
 
-async def scrape_all_assorted_links(max_pages: int = 5) -> List[Dict]:
-    """Scrape multiple pages of Assorted Links posts."""
+async def scrape_all_assorted_links(max_pages: int = 5, existing_urls: set = None) -> List[Dict]:
+    """Scrape multiple pages of Assorted Links posts.
+
+    Args:
+        max_pages: Maximum number of search result pages to scrape
+        existing_urls: Set of post URLs already in database (to skip scraping)
+    """
+    if existing_urls is None:
+        existing_urls = set()
+
     all_posts = []
+    new_posts_found = 0
 
     for page in range(1, max_pages + 1):
         posts = await get_assorted_links_posts(page)
         if not posts:
+            logger.info(f"No more posts found on page {page}")
             break
 
+        page_has_new = False
         for post in posts:
+            # Skip if we've already scraped this URL
+            if post["url"] in existing_urls:
+                logger.info(f"Skipping existing post: {post['title']}")
+                continue
+
+            page_has_new = True
+            new_posts_found += 1
+
             links = await scrape_post_links(post["url"])
             post["links"] = links
             all_posts.append(post)
             logger.info(f"Scraped: {post['title']} - {len(links)} links")
             await asyncio.sleep(0.5)  # Be polite to the server
 
+        # If this entire page had no new posts, we've caught up - stop scraping
+        if not page_has_new and page > 1:
+            logger.info(f"Page {page} had no new posts - stopping scrape")
+            break
+
+    logger.info(f"Total new posts scraped: {new_posts_found}")
     return all_posts
