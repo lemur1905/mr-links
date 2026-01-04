@@ -62,7 +62,7 @@ export default function MRLinksAggregator() {
             gap: '1rem'
           }}>
           <span style={{ color: '#a6e22e', fontWeight: 'normal', fontSize: '13px' }}>
-            marginal_revolution_links.txt
+            Marginal Revolution Links
           </span>
             <span style={{ color: '#75715e', fontSize: '12px' }}>
             — daily aggregator
@@ -79,7 +79,6 @@ export default function MRLinksAggregator() {
           borderBottom: '1px solid #3e3d32'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ color: '#66d9ef' }}>🔍</span>
             <input
                 type="text"
                 value={searchTerm}
