@@ -188,9 +188,6 @@ export default function MRLinksAggregator() {
                             >
                               {link.title}
                             </a>
-                            <span style={{ color: '#75715e', fontSize: '11px', flexShrink: 0 }}>
-                      {getDomain(link.url)}
-                    </span>
                           </div>
                       ))}
                     </div>
