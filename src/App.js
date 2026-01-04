@@ -134,9 +134,6 @@ export default function MRLinksAggregator() {
                 <span style={{ color: '#e6db74', fontWeight: 'normal' }}>
                   {day.date}
                 </span>
-                      <span style={{ color: '#75715e', marginLeft: '0.5rem' }}>
-                  {day.links.length} links
-                </span>
                     </div>
 
                     {/* Links List */}
