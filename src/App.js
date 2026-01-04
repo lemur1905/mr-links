@@ -9,6 +9,58 @@ export default function MRLinksAggregator() {
   const [error, setError] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
   const [displayCount, setDisplayCount] = useState(50);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved ? saved === 'dark' : true;
+  });
+
+  // Persist theme to localStorage
+  useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+  // Theme toggle handler
+  const toggleTheme = () => setIsDarkMode(prev => !prev);
+
+  // Theme definitions
+  const themes = {
+    dark: {
+      bg: '#272822',
+      bgSecondary: '#23241e',
+      bgTertiary: '#1e1f1c',
+      text: '#f8f8f2',
+      textSecondary: '#75715e',
+      primary: '#66d9ef',
+      primaryHover: '#a6e22e',
+      warning: '#e6db74',
+      accent: '#ae81ff',
+      error: '#f92672',
+      border: '#3e3d32',
+      borderAccent: '#66d9ef',
+      borderHighlight: '#f92672',
+      successDot: '#a6e22e',
+      errorDot: '#f92672'
+    },
+    light: {
+      bg: '#f8f8f2',
+      bgSecondary: '#e8e8e3',
+      bgTertiary: '#d8d8d3',
+      text: '#272822',
+      textSecondary: '#75715e',
+      primary: '#0088cc',
+      primaryHover: '#00aa44',
+      warning: '#cc6600',
+      accent: '#8844cc',
+      error: '#cc0044',
+      border: '#c8c8c0',
+      borderAccent: '#0088cc',
+      borderHighlight: '#cc0044',
+      successDot: '#00aa44',
+      errorDot: '#cc0044'
+    }
+  };
+
+  const theme = isDarkMode ? themes.dark : themes.light;
 
   useEffect(() => {
     fetch(`${API_URL}/api/links?limit=1000`)
@@ -52,17 +104,17 @@ export default function MRLinksAggregator() {
   return (
       <div style={{
         minHeight: '100vh',
-        backgroundColor: '#272822',
-        color: '#f8f8f2',
+        backgroundColor: theme.bg,
+        color: theme.text,
         fontFamily: 'Menlo, Monaco, "Courier New", monospace',
         fontSize: '13px',
         lineHeight: '1.5'
       }}>
         {/* Header */}
         <header style={{
-          backgroundColor: '#1e1f1c',
+          backgroundColor: theme.bgTertiary,
           padding: '0.5rem 1rem',
-          borderBottom: '1px solid #3e3d32'
+          borderBottom: `1px solid ${theme.border}`
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -72,18 +124,42 @@ export default function MRLinksAggregator() {
             justifyContent: 'space-between'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ color: '#a6e22e', fontWeight: 'normal', fontSize: '13px' }}>
+              <span style={{ color: theme.primaryHover, fontWeight: 'normal', fontSize: '13px' }}>
                 Marginal Revolution Links
               </span>
-              <span style={{ color: '#75715e', fontSize: '12px' }}>
+              <span style={{ color: theme.textSecondary, fontSize: '12px' }}>
                 — daily aggregator
               </span>
             </div>
-            <button
-              onClick={() => setShowAbout(!showAbout)}
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <button
+                onClick={toggleTheme}
+                style={{
+                  backgroundColor: 'transparent',
+                  color: theme.textSecondary,
+                  border: 'none',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                  textDecoration: 'none',
+                  padding: '0.25rem 0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = theme.primary;
+                  e.target.style.textDecoration = 'underline';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = theme.textSecondary;
+                  e.target.style.textDecoration = 'none';
+                }}
+              >
+                {isDarkMode ? 'light' : 'dark'}
+              </button>
+              <button
+                onClick={() => setShowAbout(!showAbout)}
               style={{
                 backgroundColor: 'transparent',
-                color: '#75715e',
+                color: theme.textSecondary,
                 border: 'none',
                 fontSize: '12px',
                 cursor: 'pointer',
@@ -92,16 +168,17 @@ export default function MRLinksAggregator() {
                 padding: '0.25rem 0.5rem'
               }}
               onMouseEnter={(e) => {
-                e.target.style.color = '#66d9ef';
+                e.target.style.color = theme.primary;
                 e.target.style.textDecoration = 'underline';
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = '#75715e';
+                e.target.style.color = theme.textSecondary;
                 e.target.style.textDecoration = 'none';
               }}
             >
               {showAbout ? 'close' : 'about'}
             </button>
+            </div>
           </div>
         </header>
 
@@ -110,8 +187,8 @@ export default function MRLinksAggregator() {
           maxWidth: '1400px',
           margin: '0 auto',
           padding: '0.5rem 1rem',
-          backgroundColor: '#23241e',
-          borderBottom: '1px solid #3e3d32'
+          backgroundColor: theme.bgSecondary,
+          borderBottom: `1px solid ${theme.border}`
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <input
@@ -121,9 +198,9 @@ export default function MRLinksAggregator() {
                 placeholder="Search links..."
                 style={{
                   flex: 1,
-                  backgroundColor: '#1e1f1c',
-                  color: '#f8f8f2',
-                  border: '1px solid #3e3d32',
+                  backgroundColor: theme.bgTertiary,
+                  color: theme.text,
+                  border: `1px solid ${theme.border}`,
                   padding: '0.3rem 0.5rem',
                   fontFamily: 'Menlo, Monaco, "Courier New", monospace',
                   fontSize: '12px',
@@ -131,12 +208,12 @@ export default function MRLinksAggregator() {
                   outline: 'none'
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = '#66d9ef';
-                  e.target.style.backgroundColor = '#272822';
+                  e.target.style.borderColor = theme.borderAccent;
+                  e.target.style.backgroundColor = theme.bg;
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = '#3e3d32';
-                  e.target.style.backgroundColor = '#1e1f1c';
+                  e.target.style.borderColor = theme.border;
+                  e.target.style.backgroundColor = theme.bgTertiary;
                 }}
             />
           </div>
@@ -150,14 +227,14 @@ export default function MRLinksAggregator() {
             padding: '1rem'
           }}>
             <div style={{
-              backgroundColor: '#23241e',
-              border: '1px solid #66d9ef',
+              backgroundColor: theme.bgSecondary,
+              border: `1px solid ${theme.borderAccent}`,
               borderRadius: '3px',
               padding: '1.5rem',
               lineHeight: '1.8'
             }}>
               <h2 style={{
-                color: '#66d9ef',
+                color: theme.primary,
                 fontSize: '16px',
                 fontWeight: 'normal',
                 marginTop: 0,
@@ -167,14 +244,14 @@ export default function MRLinksAggregator() {
               </h2>
               <p style={{
                 margin: '0 0 1rem 0',
-                color: '#f8f8f2',
+                color: theme.text,
                 fontSize: '13px'
               }}>
-                Created by <span style={{ color: '#a6e22e' }}>Ian Kahn</span>
+                Created by <span style={{ color: theme.primaryHover }}>Ian Kahn</span>
               </p>
               <p style={{
                 margin: '0 0 1rem 0',
-                color: '#f8f8f2',
+                color: theme.text,
                 fontSize: '13px',
                 lineHeight: '1.6'
               }}>
@@ -184,7 +261,7 @@ export default function MRLinksAggregator() {
               </p>
               <p style={{
                 margin: 0,
-                color: '#75715e',
+                color: theme.textSecondary,
                 fontSize: '12px',
                 fontStyle: 'italic'
               }}>
@@ -197,15 +274,15 @@ export default function MRLinksAggregator() {
         {/* Links Feed */}
         <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '1rem' }}>
           {loading ? (
-              <div style={{ color: '#75715e', padding: '1rem' }}>
+              <div style={{ color: theme.textSecondary, padding: '1rem' }}>
                 Loading links...
               </div>
           ) : error ? (
-              <div style={{ color: '#f92672', padding: '1rem' }}>
+              <div style={{ color: theme.error, padding: '1rem' }}>
                 Error: {error}
               </div>
           ) : filteredLinks.length === 0 ? (
-              <div style={{ color: '#75715e', padding: '1rem' }}>
+              <div style={{ color: theme.textSecondary, padding: '1rem' }}>
                 No links found matching search criteria
               </div>
           ) : (
@@ -215,24 +292,24 @@ export default function MRLinksAggregator() {
                     <div style={{
                       marginBottom: '0.5rem',
                       padding: '0.3rem 0.5rem',
-                      backgroundColor: '#23241e',
-                      borderLeft: '3px solid #66d9ef'
+                      backgroundColor: theme.bgSecondary,
+                      borderLeft: `3px solid ${theme.borderAccent}`
                     }}>
                       <a
                         href={day.post_url}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                          color: '#e6db74',
+                          color: theme.warning,
                           fontWeight: 'normal',
                           textDecoration: 'none'
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.color = '#66d9ef';
+                          e.target.style.color = theme.primary;
                           e.target.style.textDecoration = 'underline';
                         }}
                         onMouseLeave={(e) => {
-                          e.target.style.color = '#e6db74';
+                          e.target.style.color = theme.warning;
                           e.target.style.textDecoration = 'none';
                         }}
                       >
@@ -254,15 +331,15 @@ export default function MRLinksAggregator() {
                                 borderLeft: '2px solid transparent'
                               }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = '#23241e';
-                                e.currentTarget.style.borderLeftColor = '#f92672';
+                                e.currentTarget.style.backgroundColor = theme.bgSecondary;
+                                e.currentTarget.style.borderLeftColor = theme.borderHighlight;
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = 'transparent';
                                 e.currentTarget.style.borderLeftColor = 'transparent';
                               }}
                           >
-                    <span style={{ color: '#ae81ff', flexShrink: 0, fontWeight: 'bold' }}>
+                    <span style={{ color: theme.accent, flexShrink: 0, fontWeight: 'bold' }}>
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                             <a
@@ -271,7 +348,7 @@ export default function MRLinksAggregator() {
                                 rel="noopener noreferrer"
                                 title={link.title}
                                 style={{
-                                  color: '#66d9ef',
+                                  color: theme.primary,
                                   textDecoration: 'none',
                                   flex: 1,
                                   whiteSpace: 'nowrap',
@@ -279,11 +356,11 @@ export default function MRLinksAggregator() {
                                   textOverflow: 'ellipsis'
                                 }}
                                 onMouseEnter={(e) => {
-                                  e.target.style.color = '#a6e22e';
+                                  e.target.style.color = theme.primaryHover;
                                   e.target.style.textDecoration = 'underline';
                                 }}
                                 onMouseLeave={(e) => {
-                                  e.target.style.color = '#66d9ef';
+                                  e.target.style.color = theme.primary;
                                   e.target.style.textDecoration = 'none';
                                 }}
                             >
@@ -306,9 +383,9 @@ export default function MRLinksAggregator() {
               <button
                 onClick={loadMore}
                 style={{
-                  backgroundColor: '#23241e',
-                  color: '#66d9ef',
-                  border: '1px solid #3e3d32',
+                  backgroundColor: theme.bgSecondary,
+                  color: theme.primary,
+                  border: `1px solid ${theme.border}`,
                   padding: '0.5rem 1.5rem',
                   fontFamily: 'Menlo, Monaco, "Courier New", monospace',
                   fontSize: '12px',
@@ -317,14 +394,14 @@ export default function MRLinksAggregator() {
                   transition: 'all 0.15s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#1e1f1c';
-                  e.target.style.borderColor = '#66d9ef';
-                  e.target.style.color = '#a6e22e';
+                  e.target.style.backgroundColor = theme.bgTertiary;
+                  e.target.style.borderColor = theme.borderAccent;
+                  e.target.style.color = theme.primaryHover;
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#23241e';
-                  e.target.style.borderColor = '#3e3d32';
-                  e.target.style.color = '#66d9ef';
+                  e.target.style.backgroundColor = theme.bgSecondary;
+                  e.target.style.borderColor = theme.border;
+                  e.target.style.color = theme.primary;
                 }}
               >
                 Load 50 more ({filteredLinks.length - displayCount} remaining)
@@ -335,25 +412,25 @@ export default function MRLinksAggregator() {
 
         {/* Footer */}
         <footer style={{
-          backgroundColor: '#1e1f1c',
-          borderTop: '1px solid #3e3d32',
+          backgroundColor: theme.bgTertiary,
+          borderTop: `1px solid ${theme.border}`,
           padding: '0.5rem 1rem',
           marginTop: '2rem'
         }}>
           <div style={{
             maxWidth: '1400px',
             margin: '0 auto',
-            color: '#75715e',
+            color: theme.textSecondary,
             fontSize: '11px'
           }}>
             source: <a
               href="https://marginalrevolution.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#66d9ef', textDecoration: 'none' }}
+              style={{ color: theme.primary, textDecoration: 'none' }}
           >
             marginalrevolution.com
-          </a> | status: <span style={{ color: error ? '#f92672' : '#a6e22e' }}>{error ? '●' : '●'}</span> {error ? 'disconnected' : 'connected'} | unofficial aggregator
+          </a> | status: <span style={{ color: error ? theme.errorDot : theme.successDot }}>{error ? '●' : '●'}</span> {error ? 'disconnected' : 'connected'} | unofficial aggregator
           </div>
         </footer>
       </div>
