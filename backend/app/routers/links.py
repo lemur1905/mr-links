@@ -46,6 +46,7 @@ async def get_links(
         result.append(AssortedLinksPostResponse(
             id=post.id,
             date=post.post_date.isoformat(),
+            post_url=post.post_url,
             links=[LinkResponse(title=l.title, url=l.url) for l in links]
         ))
 
@@ -62,6 +63,7 @@ async def get_post(post_id: int, db: Session = Depends(get_db)):
     return AssortedLinksPostResponse(
         id=post.id,
         date=post.post_date.isoformat(),
+        post_url=post.post_url,
         links=[LinkResponse(title=l.title, url=l.url) for l in post.links]
     )
 

@@ -17,6 +17,7 @@ class AssortedLinksPostResponse(BaseModel):
     """Response schema matching the frontend's expected format."""
     id: int
     date: str
+    post_url: str
     links: List[LinkResponse]
 
     class Config:

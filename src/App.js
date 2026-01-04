@@ -218,9 +218,26 @@ export default function MRLinksAggregator() {
                       backgroundColor: '#23241e',
                       borderLeft: '3px solid #66d9ef'
                     }}>
-                <span style={{ color: '#e6db74', fontWeight: 'normal' }}>
-                  {day.date}
-                </span>
+                      <a
+                        href={day.post_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#e6db74',
+                          fontWeight: 'normal',
+                          textDecoration: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.color = '#66d9ef';
+                          e.target.style.textDecoration = 'underline';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.color = '#e6db74';
+                          e.target.style.textDecoration = 'none';
+                        }}
+                      >
+                        {day.date}
+                      </a>
                     </div>
 
                     {/* Links List */}
