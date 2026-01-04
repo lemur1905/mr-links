@@ -7,6 +7,7 @@ export default function MRLinksAggregator() {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAbout, setShowAbout] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/links`)
@@ -59,14 +60,39 @@ export default function MRLinksAggregator() {
             margin: '0 auto',
             display: 'flex',
             alignItems: 'center',
-            gap: '1rem'
+            justifyContent: 'space-between'
           }}>
-          <span style={{ color: '#a6e22e', fontWeight: 'normal', fontSize: '13px' }}>
-            Marginal Revolution Links
-          </span>
-            <span style={{ color: '#75715e', fontSize: '12px' }}>
-            — daily aggregator
-          </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span style={{ color: '#a6e22e', fontWeight: 'normal', fontSize: '13px' }}>
+                Marginal Revolution Links
+              </span>
+              <span style={{ color: '#75715e', fontSize: '12px' }}>
+                — daily aggregator
+              </span>
+            </div>
+            <button
+              onClick={() => setShowAbout(!showAbout)}
+              style={{
+                backgroundColor: 'transparent',
+                color: '#75715e',
+                border: 'none',
+                fontSize: '12px',
+                cursor: 'pointer',
+                fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                textDecoration: 'none',
+                padding: '0.25rem 0.5rem'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = '#66d9ef';
+                e.target.style.textDecoration = 'underline';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = '#75715e';
+                e.target.style.textDecoration = 'none';
+              }}
+            >
+              {showAbout ? 'close' : 'about'}
+            </button>
           </div>
         </header>
 
@@ -106,6 +132,58 @@ export default function MRLinksAggregator() {
             />
           </div>
         </div>
+
+        {/* About Section */}
+        {showAbout && (
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '1rem'
+          }}>
+            <div style={{
+              backgroundColor: '#23241e',
+              border: '1px solid #66d9ef',
+              borderRadius: '3px',
+              padding: '1.5rem',
+              lineHeight: '1.8'
+            }}>
+              <h2 style={{
+                color: '#66d9ef',
+                fontSize: '16px',
+                fontWeight: 'normal',
+                marginTop: 0,
+                marginBottom: '1rem'
+              }}>
+                About
+              </h2>
+              <p style={{
+                margin: '0 0 1rem 0',
+                color: '#f8f8f2',
+                fontSize: '13px'
+              }}>
+                Created by <span style={{ color: '#a6e22e' }}>Ian Kahn</span>
+              </p>
+              <p style={{
+                margin: '0 0 1rem 0',
+                color: '#f8f8f2',
+                fontSize: '13px',
+                lineHeight: '1.6'
+              }}>
+                A searchable, scrollable archive of Marginal Revolution's "Assorted Links."
+                <br />
+                Updated hourly.
+              </p>
+              <p style={{
+                margin: 0,
+                color: '#75715e',
+                fontSize: '12px',
+                fontStyle: 'italic'
+              }}>
+                * Not affiliated with MR
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Links Feed */}
         <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '1rem' }}>
