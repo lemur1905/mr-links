@@ -8,9 +8,10 @@ export default function MRLinksAggregator() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
+  const [displayCount, setDisplayCount] = useState(50);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/links`)
+    fetch(`${API_URL}/api/links?limit=1000`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch links');
         return res.json();
@@ -31,6 +32,14 @@ export default function MRLinksAggregator() {
         link.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
   })).filter(day => day.links.length > 0);
+
+  // Limit displayed posts based on displayCount
+  const displayedLinks = filteredLinks.slice(0, displayCount);
+  const hasMore = filteredLinks.length > displayCount;
+
+  const loadMore = () => {
+    setDisplayCount(prev => prev + 50);
+  };
 
   const getDomain = (url) => {
     try {
@@ -200,7 +209,7 @@ export default function MRLinksAggregator() {
                 No links found matching search criteria
               </div>
           ) : (
-              filteredLinks.map((day) => (
+              displayedLinks.map((day) => (
                   <div key={day.id} style={{ marginBottom: '1.5rem' }}>
                     {/* Date Header */}
                     <div style={{
@@ -268,6 +277,42 @@ export default function MRLinksAggregator() {
                     </div>
                   </div>
               ))
+          )}
+
+          {/* Load More Button */}
+          {!loading && !error && hasMore && (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              padding: '2rem 0'
+            }}>
+              <button
+                onClick={loadMore}
+                style={{
+                  backgroundColor: '#23241e',
+                  color: '#66d9ef',
+                  border: '1px solid #3e3d32',
+                  padding: '0.5rem 1.5rem',
+                  fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  borderRadius: '3px',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#1e1f1c';
+                  e.target.style.borderColor = '#66d9ef';
+                  e.target.style.color = '#a6e22e';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = '#23241e';
+                  e.target.style.borderColor = '#3e3d32';
+                  e.target.style.color = '#66d9ef';
+                }}
+              >
+                Load 50 more ({filteredLinks.length - displayCount} remaining)
+              </button>
+            </div>
           )}
         </main>
 
