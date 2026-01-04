@@ -175,14 +175,12 @@ async def scrape_all_assorted_links(max_pages: int = 5, existing_urls: set = Non
             logger.info(f"No more posts found on page {page}")
             break
 
-        page_has_new = False
         for post in posts:
             # Skip if we've already scraped this URL
             if post["url"] in existing_urls:
                 logger.info(f"Skipping existing post: {post['title']}")
                 continue
 
-            page_has_new = True
             new_posts_found += 1
 
             links = await scrape_post_links(post["url"])
@@ -190,11 +188,6 @@ async def scrape_all_assorted_links(max_pages: int = 5, existing_urls: set = Non
             all_posts.append(post)
             logger.info(f"Scraped: {post['title']} - {len(links)} links")
             await asyncio.sleep(0.5)  # Be polite to the server
-
-        # If this entire page had no new posts, we've caught up - stop scraping
-        if not page_has_new and page > 1:
-            logger.info(f"Page {page} had no new posts - stopping scrape")
-            break
 
     logger.info(f"Total new posts scraped: {new_posts_found}")
     return all_posts
