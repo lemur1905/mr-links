@@ -93,14 +93,6 @@ export default function MRLinksAggregator() {
     setDisplayCount(prev => prev + 50);
   };
 
-  const getDomain = (url) => {
-    try {
-      return new URL(url).hostname.replace('www.', '');
-    } catch {
-      return 'unknown';
-    }
-  };
-
   return (
       <div style={{
         minHeight: '100vh',
