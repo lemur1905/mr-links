@@ -25,6 +25,9 @@ if frontend_url:
     origins.append(frontend_url)
     # Also add without trailing slash if present
     origins.append(frontend_url.rstrip('/'))
+    # Add http variant in case of redirect
+    if frontend_url.startswith("https://"):
+        origins.append(frontend_url.replace("https://", "http://", 1))
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,6 +44,8 @@ app.include_router(links.router)
 @app.on_event("startup")
 async def startup():
     """Initialize database and scheduler on startup."""
+    print(f"CORS origins configured: {origins}")
+    print(f"FRONTEND_URL env var: {os.getenv('FRONTEND_URL')}")
     init_db()
     start_scheduler()
 
