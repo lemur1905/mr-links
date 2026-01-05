@@ -127,9 +127,6 @@ export default function MRLinksAggregator() {
               <span style={{ color: theme.primaryHover, fontWeight: 'normal', fontSize: '13px' }}>
                 Marginal Revolution Links
               </span>
-              <span style={{ color: theme.textSecondary, fontSize: '12px' }}>
-                — daily aggregator
-              </span>
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button
