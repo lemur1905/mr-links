@@ -22,6 +22,8 @@ origins = [
 # Add production frontend URL if set
 frontend_url = os.getenv("FRONTEND_URL")
 if frontend_url:
+    # Strip whitespace and newlines
+    frontend_url = frontend_url.strip()
     origins.append(frontend_url)
     # Also add without trailing slash if present
     origins.append(frontend_url.rstrip('/'))
