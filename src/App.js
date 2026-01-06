@@ -116,25 +116,26 @@ export default function MRLinksAggregator() {
             justifyContent: 'space-between'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <a
-                href="https://marginalrevolution.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  color: theme.primaryHover,
-                  fontWeight: 'normal',
-                  fontSize: '13px',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.textDecoration = 'underline';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.textDecoration = 'none';
-                }}
-              >
-                Marginal Revolution Links
-              </a>
+              <span style={{ color: theme.primaryHover, fontWeight: 'normal', fontSize: '13px' }}>
+                <a
+                  href="https://marginalrevolution.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: theme.primaryHover,
+                    textDecoration: 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.textDecoration = 'underline';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.textDecoration = 'none';
+                  }}
+                >
+                  Marginal Revolution
+                </a>
+                {' Links'}
+              </span>
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button
