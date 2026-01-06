@@ -77,7 +77,7 @@ export default function MRLinksAggregator() {
     setError(null);
 
     const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
-    const url = `${API_URL}/api/links?limit=50${searchParam}`;
+    const url = `${API_URL}/api/links?limit=25${searchParam}`;
 
     fetch(url)
       .then(res => {
@@ -86,7 +86,7 @@ export default function MRLinksAggregator() {
       })
       .then(data => {
         setLinks(data);
-        setHasMore(data.length === 50);
+        setHasMore(data.length === 25);
         setLoading(false);
       })
       .catch(err => {
