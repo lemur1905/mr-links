@@ -190,3 +190,68 @@ async def get_stats(db: Session = Depends(get_db)):
         "total_posts": total_posts,
         "total_links": total_links
     }
+
+
+@router.post("/import")
+async def bulk_import(
+    posts_data: List[dict],
+    db: Session = Depends(get_db)
+):
+    """Bulk import posts from JSON export.
+
+    Expects array of objects with: post_url, post_date, title, links[]
+    """
+    posts_added = 0
+    total_links = 0
+    skipped = 0
+
+    # Get existing URLs to avoid duplicates
+    existing_urls = set(
+        url for (url,) in db.query(AssortedLinksPost.post_url).all()
+    )
+
+    for post_data in posts_data:
+        # Skip if already exists
+        if post_data.get("post_url") in existing_urls:
+            skipped += 1
+            continue
+
+        if not post_data.get("post_date"):
+            continue
+
+        # Parse date if it's a string
+        post_date = post_data["post_date"]
+        if isinstance(post_date, str):
+            from datetime import datetime
+            post_date = datetime.fromisoformat(post_date).date()
+
+        # Create new post
+        post = AssortedLinksPost(
+            post_url=post_data["post_url"],
+            post_date=post_date,
+            title=post_data.get("title", "")
+        )
+        db.add(post)
+        db.flush()
+
+        # Add links
+        for link_data in post_data.get("links", []):
+            link = Link(
+                post_id=post.id,
+                title=link_data["title"],
+                url=link_data["url"],
+                link_number=link_data.get("link_number")
+            )
+            db.add(link)
+            total_links += 1
+
+        posts_added += 1
+
+    db.commit()
+
+    return {
+        "message": "Import complete",
+        "posts_imported": posts_added,
+        "links_imported": total_links,
+        "skipped": skipped
+    }
