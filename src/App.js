@@ -4,11 +4,12 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 export default function MRLinksAggregator() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
-  const [displayCount, setDisplayCount] = useState(50);
+  const [hasMore, setHasMore] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('theme');
     return saved ? saved === 'dark' : true;
@@ -21,6 +22,14 @@ export default function MRLinksAggregator() {
 
   // Theme toggle handler
   const toggleTheme = () => setIsDarkMode(prev => !prev);
+
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   // Theme definitions
   const themes = {
@@ -62,35 +71,51 @@ export default function MRLinksAggregator() {
 
   const theme = isDarkMode ? themes.dark : themes.light;
 
+  // Fetch links from backend with search and pagination
   useEffect(() => {
-    fetch(`${API_URL}/api/links?limit=1000`)
+    setLoading(true);
+    setError(null);
+
+    const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
+    const url = `${API_URL}/api/links?limit=50${searchParam}`;
+
+    fetch(url)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch links');
         return res.json();
       })
       .then(data => {
         setLinks(data);
+        setHasMore(data.length === 50);
         setLoading(false);
       })
       .catch(err => {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
-
-  const filteredLinks = links.map(day => ({
-    ...day,
-    links: day.links.filter(link =>
-        link.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  })).filter(day => day.links.length > 0);
-
-  // Limit displayed posts based on displayCount
-  const displayedLinks = filteredLinks.slice(0, displayCount);
-  const hasMore = filteredLinks.length > displayCount;
+  }, [debouncedSearch]);
 
   const loadMore = () => {
-    setDisplayCount(prev => prev + 50);
+    if (loading) return;
+
+    setLoading(true);
+    const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
+    const url = `${API_URL}/api/links?skip=${links.length}&limit=50${searchParam}`;
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch more links');
+        return res.json();
+      })
+      .then(data => {
+        setLinks(prev => [...prev, ...data]);
+        setHasMore(data.length === 50);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
   };
 
   return (
@@ -287,12 +312,12 @@ export default function MRLinksAggregator() {
               <div style={{ color: theme.error, padding: '1rem' }}>
                 Error: {error}
               </div>
-          ) : filteredLinks.length === 0 ? (
+          ) : links.length === 0 ? (
               <div style={{ color: theme.textSecondary, padding: '1rem' }}>
                 No links found matching search criteria
               </div>
           ) : (
-              displayedLinks.map((day) => (
+              links.map((day) => (
                   <div key={day.id} style={{ marginBottom: '1.5rem' }}>
                     {/* Date Header */}
                     <div style={{
@@ -410,7 +435,7 @@ export default function MRLinksAggregator() {
                   e.target.style.color = theme.primary;
                 }}
               >
-                Load 50 more ({filteredLinks.length - displayCount} remaining)
+                Load 50 more
               </button>
             </div>
           )}
