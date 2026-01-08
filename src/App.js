@@ -304,7 +304,7 @@ export default function MRLinksAggregator() {
 
         {/* Links Feed */}
         <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '1rem' }}>
-          {loading ? (
+          {loading && links.length === 0 ? (
               <div style={{ color: theme.textSecondary, padding: '1rem' }}>
                 Loading links...
               </div>
