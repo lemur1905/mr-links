@@ -108,7 +108,7 @@ export default function MRLinksAggregator() {
 
     setLoading(true);
     const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
-    const url = `${API_URL}/api/links?skip=${links.length}&limit=50${searchParam}`;
+    const url = `${API_URL}/api/links?skip=${links.length}&limit=25${searchParam}`;
 
     fetch(url)
       .then(res => {
@@ -117,7 +117,7 @@ export default function MRLinksAggregator() {
       })
       .then(data => {
         setLinks(prev => [...prev, ...data]);
-        setHasMore(data.length === 50);
+        setHasMore(data.length === 25);
         setLoading(false);
       })
       .catch(err => {
@@ -409,11 +409,12 @@ export default function MRLinksAggregator() {
               ))
           )}
 
-          {/* Load More Button */}
+          {/* Load More and Top Buttons */}
           {!loading && !error && hasMore && (
             <div style={{
               display: 'flex',
               justifyContent: 'center',
+              gap: '1rem',
               padding: '2rem 0'
             }}>
               <button
@@ -440,7 +441,33 @@ export default function MRLinksAggregator() {
                   e.target.style.color = theme.primary;
                 }}
               >
-                Load 50 more
+                Load 25 more
+              </button>
+              <button
+                onClick={() => window.scrollTo(0, 0)}
+                style={{
+                  backgroundColor: theme.bgSecondary,
+                  color: theme.primary,
+                  border: `1px solid ${theme.border}`,
+                  padding: '0.5rem 1.5rem',
+                  fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  borderRadius: '3px',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = theme.bgTertiary;
+                  e.target.style.borderColor = theme.borderAccent;
+                  e.target.style.color = theme.primaryHover;
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = theme.bgSecondary;
+                  e.target.style.borderColor = theme.border;
+                  e.target.style.color = theme.primary;
+                }}
+              >
+                top
               </button>
             </div>
           )}
