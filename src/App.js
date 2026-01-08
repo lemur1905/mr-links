@@ -10,6 +10,7 @@ export default function MRLinksAggregator() {
   const [error, setError] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('theme');
     return saved ? saved === 'dark' : true;
@@ -30,6 +31,13 @@ export default function MRLinksAggregator() {
     }, 300);
     return () => clearTimeout(timer);
   }, [searchTerm]);
+
+  // Track window resize for mobile detection
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Theme definitions
   const themes = {
@@ -349,7 +357,7 @@ export default function MRLinksAggregator() {
                     </div>
 
                     {/* Links List */}
-                    <div style={{ paddingLeft: '1.5rem' }}>
+                    <div style={{ paddingLeft: isMobile ? '0' : '1.5rem' }}>
                       {day.links.map((link, idx) => (
                           <div
                               key={idx}
@@ -381,10 +389,7 @@ export default function MRLinksAggregator() {
                                 style={{
                                   color: theme.primary,
                                   textDecoration: 'none',
-                                  flex: 1,
-                                  whiteSpace: 'nowrap',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis'
+                                  flex: 1
                                 }}
                                 onMouseEnter={(e) => {
                                   e.target.style.color = theme.primaryHover;
