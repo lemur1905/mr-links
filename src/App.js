@@ -167,7 +167,7 @@ export default function MRLinksAggregator() {
                 >
                   Marginal Revolution
                 </a>
-                {' Links'}
+                {'\u00A0Links'}
               </span>
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
