@@ -63,17 +63,17 @@ export default function MRLinksAggregator() {
       bgSecondary: '#e8e8e3',
       bgTertiary: '#d8d8d3',
       text: '#272822',
-      textSecondary: '#75715e',
-      primary: '#0088cc',
-      primaryHover: '#00aa44',
-      warning: '#cc6600',
-      accent: '#8844cc',
-      error: '#cc0044',
+      textSecondary: '#5c5c52',
+      primary: '#0066a8',
+      primaryHover: '#007a33',
+      warning: '#b35500',
+      accent: '#6b2fa0',
+      error: '#b3003a',
       border: '#c8c8c0',
-      borderAccent: '#0088cc',
-      borderHighlight: '#cc0044',
-      successDot: '#00aa44',
-      errorDot: '#cc0044'
+      borderAccent: '#0066a8',
+      borderHighlight: '#b3003a',
+      successDot: '#007a33',
+      errorDot: '#b3003a'
     }
   };
 
@@ -409,12 +409,13 @@ export default function MRLinksAggregator() {
               ))
           )}
 
-          {/* Load More and Top Buttons */}
+          {/* Load More and Top */}
           {!loading && !error && hasMore && (
             <div style={{
               display: 'flex',
-              justifyContent: 'center',
-              gap: '1rem',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.75rem',
               padding: '2rem 0'
             }}>
               <button
@@ -443,32 +444,25 @@ export default function MRLinksAggregator() {
               >
                 Load 25 more
               </button>
-              <button
+              <span
                 onClick={() => window.scrollTo(0, 0)}
                 style={{
-                  backgroundColor: theme.bgSecondary,
-                  color: theme.primary,
-                  border: `1px solid ${theme.border}`,
-                  padding: '0.5rem 1.5rem',
+                  color: theme.textSecondary,
                   fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-                  fontSize: '12px',
-                  cursor: 'pointer',
-                  borderRadius: '3px',
-                  transition: 'all 0.15s ease'
+                  fontSize: '11px',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = theme.bgTertiary;
-                  e.target.style.borderColor = theme.borderAccent;
-                  e.target.style.color = theme.primaryHover;
+                  e.target.style.color = theme.primary;
+                  e.target.style.textDecoration = 'underline';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = theme.bgSecondary;
-                  e.target.style.borderColor = theme.border;
-                  e.target.style.color = theme.primary;
+                  e.target.style.color = theme.textSecondary;
+                  e.target.style.textDecoration = 'none';
                 }}
               >
-                top
-              </button>
+                ↑ top
+              </span>
             </div>
           )}
         </main>

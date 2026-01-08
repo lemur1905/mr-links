@@ -70,7 +70,7 @@ async def get_post(post_id: int, db: Session = Depends(get_db)):
 
 @router.post("/scrape", response_model=ScrapeResponse)
 async def scrape_links(
-    pages: int = Query(3, ge=1, le=50),
+    pages: int = Query(3, ge=1, le=200),
     db: Session = Depends(get_db)
 ):
     """Scrape Marginal Revolution for Assorted Links posts."""
@@ -116,9 +116,9 @@ async def scrape_links(
             db.add(link)
             total_links += 1
 
+        # Commit after each post so progress is saved if interrupted
+        db.commit()
         posts_added += 1
-
-    db.commit()
 
     return ScrapeResponse(
         message=f"Scraping complete",
