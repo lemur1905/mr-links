@@ -153,7 +153,6 @@ export default function MRLinksAggregator() {
               color: theme.primaryHover,
               fontWeight: 'normal',
               fontSize: '13px',
-              lineHeight: 1.1,
               minWidth: 0
             }}>
               {isMobile ? (
