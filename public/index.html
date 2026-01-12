@@ -24,6 +24,25 @@
     <meta property="twitter:description" content="A searchable archive of Marginal Revolution's Assorted Links posts" />
     <meta property="twitter:image" content="%PUBLIC_URL%/og-image.png" />
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mr-links-production.up.railway.app/" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Marginal Revolution Links",
+      "description": "A searchable archive of Marginal Revolution's Assorted Links posts",
+      "url": "https://mr-links-production.up.railway.app/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://mr-links-production.up.railway.app/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
