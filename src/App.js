@@ -398,11 +398,11 @@ export default function MRLinksAggregator() {
                                 margin: '0 -0.3rem',
                                 borderLeft: '2px solid transparent'
                               }}
-                              onMouseEnter={(e) => {
+                              onMouseEnter={isMobile ? undefined : (e) => {
                                 e.currentTarget.style.backgroundColor = theme.bgSecondary;
                                 e.currentTarget.style.borderLeftColor = theme.borderHighlight;
                               }}
-                              onMouseLeave={(e) => {
+                              onMouseLeave={isMobile ? undefined : (e) => {
                                 e.currentTarget.style.backgroundColor = 'transparent';
                                 e.currentTarget.style.borderLeftColor = 'transparent';
                               }}
@@ -420,11 +420,11 @@ export default function MRLinksAggregator() {
                                   textDecoration: 'none',
                                   flex: 1
                                 }}
-                                onMouseEnter={(e) => {
+                                onMouseEnter={isMobile ? undefined : (e) => {
                                   e.target.style.color = theme.primaryHover;
                                   e.target.style.textDecoration = 'underline';
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={isMobile ? undefined : (e) => {
                                   e.target.style.color = theme.primary;
                                   e.target.style.textDecoration = 'none';
                                 }}
