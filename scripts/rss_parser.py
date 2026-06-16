@@ -5,7 +5,7 @@ from dateutil import parser as date_parser
 from typing import List, Dict, Optional
 import logging
 
-from app.scraper import extract_links_from_post, HEADERS
+from scraper import extract_links_from_post, HEADERS
 
 logger = logging.getLogger(__name__)
 

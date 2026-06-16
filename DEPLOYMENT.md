@@ -1,161 +1,68 @@
-# Deployment Guide: Railway
+# Deployment: GitHub Pages (free)
 
-This guide walks you through deploying your Marginal Revolution Links app to Railway.
+This site is a static React app served from GitHub Pages. A scheduled GitHub
+Action scrapes Marginal Revolution daily, commits the data into the repo, builds
+the app, and deploys it. There is no server and no database — hosting is $0.
 
-## Prerequisites
+## One-time setup
 
-1. GitHub account
-2. Railway account (sign up at railway.app)
-3. Code pushed to GitHub
+### 1. Make the repo public
+Free GitHub Pages requires a public repo (or GitHub Pro for private). Settings →
+General → "Change repository visibility" → Public.
 
-## Step-by-Step Deployment
+### 2. Enable Pages via GitHub Actions
+Settings → Pages → **Source: GitHub Actions**. (The workflow uses the official
+`upload-pages-artifact` / `deploy-pages` actions, not a `gh-pages` branch.)
 
-### 1. Push Code to GitHub
+### 3. Custom domain
+`public/CNAME` already contains `mr.iankahn.net`, so the custom domain re-applies
+on every deploy. In **Cloudflare DNS** for `iankahn.net`, add:
 
-```bash
-git add .
-git commit -m "Prepare for Railway deployment"
-git push origin epic-maxwell
+```
+CNAME   mr   →   lemur1905.github.io      (DNS only / grey cloud — NOT proxied)
 ```
 
-### 2. Set Up Railway Project
+GitHub needs the un-proxied record to issue the HTTPS certificate. Once Pages
+shows the domain as verified and green, enable **Enforce HTTPS** in Settings → Pages.
 
-1. Go to [railway.app](https://railway.app)
-2. Click "Start a New Project"
-3. Choose "Deploy from GitHub repo"
-4. Select your repository
-5. Railway will detect it's a monorepo
+## The workflow
 
-### 3. Deploy Backend
+`.github/workflows/update-and-deploy.yml` runs on a daily cron (`0 12 * * *`), on
+push to `main`, and on manual dispatch. Each run:
 
-1. Click "Add a Service" → "New Service"
-2. Choose your GitHub repo
-3. Configure:
-   - **Root Directory**: `backend`
-   - **Build Command**: (auto-detected)
-   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+1. Checks out the repo.
+2. Installs `scripts/requirements.txt` and runs `python scripts/build_data.py`
+   (incremental RSS scrape).
+3. Commits `public/links.json` back if it changed (the store is self-healing and
+   incremental). The commit message includes `[skip ci]` so it doesn't re-trigger.
+4. `npm ci && npm run build`.
+5. Deploys `build/` to Pages.
 
-4. Add PostgreSQL database:
-   - Click "New" → "Database" → "Add PostgreSQL"
-   - Railway auto-provides `DATABASE_URL` env variable
+To trigger manually: Actions → "Update data and deploy" → "Run workflow".
 
-5. Set environment variables:
-   - Click on backend service → "Variables" tab
-   - Add:
-     ```
-     ENABLE_RSS_SCHEDULER=true
-     RSS_UPDATE_INTERVAL_HOURS=1
-     FRONTEND_URL=  (will fill in after frontend deploys)
-     ```
+## Backfilling history
 
-6. Deploy! Railway will automatically build and deploy
+The cron only fetches recent posts (via RSS). To (re)build the full archive, run a
+full scrape locally and commit the result:
 
-### 4. Deploy Frontend
-
-1. Click "Add a Service" → "New Service"
-2. Choose same GitHub repo
-3. Configure:
-   - **Root Directory**: `.` (or leave blank)
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npx serve -s build -l $PORT`
-
-4. Set environment variables:
-   - Click on frontend service → "Variables" tab
-   - Add:
-     ```
-     REACT_APP_API_URL=<your-backend-url>
-     ```
-   - Get backend URL from: Backend service → "Settings" → "Domains"
-
-5. Deploy!
-
-### 5. Update CORS
-
-1. Copy your frontend URL from Railway
-2. Go back to backend service → "Variables"
-3. Update `FRONTEND_URL` with your frontend URL
-4. Backend will auto-redeploy
-
-### 6. Generate Public URLs
-
-Railway auto-generates URLs like:
-- Backend: `https://backend-production-xxxx.up.railway.app`
-- Frontend: `https://frontend-production-xxxx.up.railway.app`
-
-You can customize these in Settings → Domains
-
-## Custom Domain (Optional)
-
-### Option 1: Buy domain through Namecheap/GoDaddy
-
-1. Buy domain (e.g., `mrlinks.com`) for ~$12/year
-2. In Railway:
-   - Frontend service → Settings → Domains
-   - Click "Add custom domain"
-   - Enter your domain (e.g., `mrlinks.com`)
-3. In your domain registrar (Namecheap/GoDaddy):
-   - Add CNAME record: `www` → Railway's provided URL
-   - Add A record: `@` → Railway's provided IP (or use CNAME flattening)
-4. Wait 5-60 minutes for DNS propagation
-
-### Option 2: Use Railway's subdomain
-
-Railway gives you free subdomains:
-- Frontend: `your-app.up.railway.app`
-- Backend: `your-api.up.railway.app`
-
-## Post-Deployment
-
-### Initial Data Load
-
-Your database will be empty. To populate it:
-
-1. Call the scrape endpoint manually:
-   ```bash
-   curl -X POST https://your-backend.up.railway.app/api/links/scrape?pages=50
-   ```
-
-2. Or enable the scheduler (already set in env vars) - it will run hourly
-
-### Monitor Your App
-
-- Railway Dashboard → Your service → "Observability"
-- Check logs for errors
-- Monitor resource usage
+```bash
+pip install -r scripts/requirements.txt
+python scripts/build_data.py --full --max-pages 50
+git add public/links.json && git commit -m "data: full backfill" && git push
+```
 
 ## Costs
 
-**Estimated Monthly Cost**: $5-10
-
-- Railway: $5 base + usage
-- PostgreSQL: Included in Railway
-- Domain (optional): ~$1/month ($12/year)
-
-**Free Trial**: Railway gives you $5 credit/month for hobby projects
+**$0/month.** GitHub Pages hosting is free for public repos; GitHub Actions daily
+cron is well within the free minutes allowance. The only cost is the `iankahn.net`
+domain registration (already owned).
 
 ## Troubleshooting
 
-### Backend not connecting to frontend
-- Check CORS settings in backend
-- Verify `FRONTEND_URL` env variable is set correctly
-- Check browser console for CORS errors
-
-### Database connection errors
-- Verify PostgreSQL service is running
-- Check `DATABASE_URL` is auto-populated
-- Look at backend logs in Railway dashboard
-
-### Build failures
-- Check `requirements.txt` for Python deps
-- Verify `package.json` for Node deps
-- Review build logs in Railway
-
-### Frontend can't reach backend
-- Verify `REACT_APP_API_URL` points to correct backend URL
-- Check backend health: visit `https://your-backend.up.railway.app/health`
-- Must rebuild frontend after changing env vars
-
-## Need Help?
-
-- Railway docs: https://docs.railway.app
-- Railway Discord: https://discord.gg/railway
+- **Empty site / no links**: check the latest Actions run logs. If MR changed its
+  HTML/RSS format, `build_data.py` will scrape 0 links — verify selectors in
+  `scripts/scraper.py`.
+- **Custom domain not verifying**: ensure the Cloudflare CNAME is **DNS only**
+  (grey cloud), not proxied. Proxying blocks GitHub's cert issuance.
+- **`links.json` not updating**: confirm the workflow has `contents: write`
+  permission and that the daily run is succeeding.

@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-06-16: Convert to free static site
+
+### Summary
+Eliminated the paid backend. The app was a full-stack FastAPI + PostgreSQL +
+APScheduler service (~$5/mo on Railway); it is now a static site on GitHub Pages
+that costs $0. Data is pre-built into `public/links.json` and search runs in the
+browser.
+
+### Changes Made
+- **Added `scripts/build_data.py`** — builds `public/links.json` with no database.
+  Imports the pure `scraper.py` / `rss_parser.py` (copied into `scripts/`).
+  Incremental RSS update by default; `--full` does an HTML-scrape backfill.
+- **Frontend (`src/App.js`)** — now fetches `/links.json` once on mount and does
+  case-insensitive substring search on link titles + "load more" pagination
+  entirely client-side. Removed all `/api/...`, `API_URL`, `REACT_APP_API_URL`.
+- **Removed the server** — deleted `backend/`, `railway.json`, `migrate_to_postgres.py`,
+  and `.env.example` (backend-only vars).
+- **GitHub Pages config** — added `homepage` to `package.json`, `public/CNAME`
+  (`mr.iankahn.net`), and `.github/workflows/update-and-deploy.yml` (daily scrape →
+  commit JSON → build → deploy).
+- Rewrote `README.md` and `DEPLOYMENT.md` for the static architecture.
+
 ## 2026-01-03: Full Year Scraping Update
 
 ### Summary

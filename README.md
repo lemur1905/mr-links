@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# MR Links
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A searchable, scrollable archive of [Marginal Revolution](https://marginalrevolution.com)'s
+daily "Assorted Links" posts. Live at **[mr.iankahn.net](https://mr.iankahn.net)**.
 
-## Available Scripts
+This is a **fully static site** — no server, no database, $0 hosting. A scheduled
+GitHub Action scrapes MR once a day, writes the data to `public/links.json`, and the
+React app loads that file and does search/pagination entirely in the browser.
 
-In the project directory, you can run:
+## How it works
 
-### `npm start`
+```
+scripts/build_data.py   (pure scraper + RSS parser, no database)
+        │  scrapes MR, merges into public/links.json (dedupe by post_url)
+        ▼
+public/links.json       (committed; the persistent store + what ships)
+        │
+React app  ──fetch('/links.json') once──▶  client-side search + pagination
+        │
+GitHub Actions (daily cron): build_data.py → commit links.json → npm build → deploy Pages
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Search is a case-insensitive substring match on link titles, results grouped by day
+(newest first), showing only matching links within each day, with "load more" pagination.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Local development
 
-### `npm test`
+```bash
+# Frontend (no backend needed)
+npm ci
+npm start            # http://localhost:3000, reads public/links.json
+npm run build        # production build into build/ (includes links.json)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Data build (Python 3.11+)
+pip install -r scripts/requirements.txt
+python scripts/build_data.py            # incremental update via RSS (what the cron runs)
+python scripts/build_data.py --full     # full backfill via HTML scrape
+python scripts/build_data.py --full --max-pages 20
+```
 
-### `npm run build`
+## Project layout
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `src/` — the React app (Create React App).
+- `public/links.json` — the data store; committed and served as-is.
+- `public/CNAME` — custom domain (`mr.iankahn.net`) for GitHub Pages.
+- `scripts/` — `build_data.py` plus the pure `scraper.py` / `rss_parser.py` it imports.
+- `.github/workflows/update-and-deploy.yml` — daily scrape + build + deploy.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+See [DEPLOYMENT.md](DEPLOYMENT.md) for hosting and DNS setup.

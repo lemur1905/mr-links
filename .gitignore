@@ -25,6 +25,8 @@ yarn-error.log*
 .idea/
 
 # Python
+.venv-build/
+scripts/__pycache__/
 backend/__pycache__/
 backend/venv/
 backend/.venv/
@@ -35,3 +37,9 @@ backend/.env
 # Database
 backend/*.db
 backend/*.db-journal
+
+# Internal / private (tracked in separate private repo, never published here)
+/notes/
+/mr-links-static-handoff.md
+/AGENTS.md
+/CLAUDE.md

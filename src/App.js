@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const PAGE_SIZE = 25;
 
 export default function MRLinksAggregator() {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [links, setLinks] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('theme');
@@ -79,52 +79,45 @@ export default function MRLinksAggregator() {
 
   const theme = isDarkMode ? themes.dark : themes.light;
 
-  // Fetch links from backend with search and pagination
+  // Load all posts once from the static JSON file
   useEffect(() => {
     setLoading(true);
     setError(null);
 
-    const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
-    const url = `${API_URL}/api/links?limit=25${searchParam}`;
-
-    fetch(url)
+    fetch(`${process.env.PUBLIC_URL}/links.json`)
       .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch links');
+        if (!res.ok) throw new Error('Failed to load links');
         return res.json();
       })
       .then(data => {
-        setLinks(data);
-        setHasMore(data.length === 25);
+        setAllPosts(data);
         setLoading(false);
       })
       .catch(err => {
         setError(err.message);
         setLoading(false);
       });
+  }, []);
+
+  // Client-side search: case-insensitive substring match on link titles only,
+  // keeping only matching links within each day and dropping empty days.
+  const filtered = useMemo(() => {
+    const term = debouncedSearch.trim().toLowerCase();
+    if (!term) return allPosts;
+    return allPosts
+      .map(p => ({ ...p, links: p.links.filter(l => l.title.toLowerCase().includes(term)) }))
+      .filter(p => p.links.length > 0);
+  }, [allPosts, debouncedSearch]);
+
+  // Reset pagination whenever the search term changes
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
   }, [debouncedSearch]);
 
-  const loadMore = () => {
-    if (loading) return;
+  const visiblePosts = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
-    setLoading(true);
-    const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
-    const url = `${API_URL}/api/links?skip=${links.length}&limit=25${searchParam}`;
-
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch more links');
-        return res.json();
-      })
-      .then(data => {
-        setLinks(prev => [...prev, ...data]);
-        setHasMore(data.length === 25);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
-      });
-  };
+  const loadMore = () => setVisibleCount(c => c + PAGE_SIZE);
 
   return (
       <div style={{
@@ -325,7 +318,7 @@ export default function MRLinksAggregator() {
               }}>
                 A searchable, scrollable archive of Marginal Revolution's "Assorted Links."
                 <br />
-                Updated hourly.
+                Updated daily.
               </p>
               <p style={{
                 margin: 0,
@@ -341,7 +334,7 @@ export default function MRLinksAggregator() {
 
         {/* Links Feed */}
         <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '1rem' }}>
-          {loading && links.length === 0 ? (
+          {loading ? (
               <div style={{ color: theme.textSecondary, padding: '1rem' }}>
                 Loading links...
               </div>
@@ -349,13 +342,13 @@ export default function MRLinksAggregator() {
               <div style={{ color: theme.error, padding: '1rem' }}>
                 Error: {error}
               </div>
-          ) : links.length === 0 ? (
+          ) : filtered.length === 0 ? (
               <div style={{ color: theme.textSecondary, padding: '1rem' }}>
                 No links found matching search criteria
               </div>
           ) : (
-              links.map((day) => (
-                  <div key={day.id} style={{ marginBottom: '1.5rem' }}>
+              visiblePosts.map((day) => (
+                  <div key={day.post_url} style={{ marginBottom: '1.5rem' }}>
                     {/* Date Header */}
                     <div style={{
                       marginBottom: '0.5rem',
@@ -381,7 +374,7 @@ export default function MRLinksAggregator() {
                           e.target.style.textDecoration = 'none';
                         }}
                       >
-                        {day.date}
+                        {day.post_date}
                       </a>
                     </div>
 
@@ -516,7 +509,7 @@ export default function MRLinksAggregator() {
               style={{ color: theme.primary, textDecoration: 'none' }}
           >
             marginalrevolution.com
-          </a> | status: <span style={{ color: error ? theme.errorDot : theme.successDot }}>{error ? '●' : '●'}</span> {error ? 'disconnected' : 'connected'} | unofficial aggregator
+          </a> | status: <span style={{ color: error ? theme.errorDot : theme.successDot }}>●</span> {error ? 'error' : 'ok'} | unofficial aggregator
           </div>
         </footer>
       </div>
