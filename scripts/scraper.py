@@ -72,7 +72,10 @@ def extract_links_from_post(html: str) -> List[Dict[str, str]]:
                     links.append({
                         "title": link_title,
                         "url": link_url,
-                        "number": link_number
+                        "number": link_number,
+                        # Full paragraph text (number + title + Tyler's framing /
+                        # source tags). Stored for search only, not displayed.
+                        "context": text,
                     })
 
     # If no numbered links found, try to get all external links
@@ -85,10 +88,12 @@ def extract_links_from_post(html: str) -> List[Dict[str, str]]:
                 href.startswith("http") and
                 not href.startswith(BASE_URL) and
                 "marginalrevolution" not in href):
+                parent = anchor.find_parent(["p", "li"])
                 links.append({
                     "title": title,
                     "url": href,
-                    "number": len(links) + 1
+                    "number": len(links) + 1,
+                    "context": parent.get_text(strip=True) if parent else title,
                 })
 
     return links

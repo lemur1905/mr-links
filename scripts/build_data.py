@@ -66,6 +66,7 @@ def normalize(post):
                 "title": link["title"],
                 "url": link["url"],
                 "link_number": link.get("number"),
+                "context": link.get("context", ""),
             }
             for link in post.get("links", [])
         ],

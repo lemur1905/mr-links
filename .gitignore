@@ -43,3 +43,6 @@ backend/*.db-journal
 /mr-links-static-handoff.md
 /AGENTS.md
 /CLAUDE.md
+
+# Design exploration mockups — local scratch, never shipped or published
+/explorations/

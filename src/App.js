@@ -99,13 +99,19 @@ export default function MRLinksAggregator() {
       });
   }, []);
 
-  // Client-side search: case-insensitive substring match on link titles only,
-  // keeping only matching links within each day and dropping empty days.
+  // Client-side search: case-insensitive substring match on each link's title
+  // plus its scraped context (Tyler's surrounding text; not displayed). Keeps
+  // only matching links within each day and drops empty days.
   const filtered = useMemo(() => {
     const term = debouncedSearch.trim().toLowerCase();
     if (!term) return allPosts;
     return allPosts
-      .map(p => ({ ...p, links: p.links.filter(l => l.title.toLowerCase().includes(term)) }))
+      .map(p => ({
+        ...p,
+        links: p.links.filter(l =>
+          (l.title + ' ' + (l.context || '')).toLowerCase().includes(term)
+        ),
+      }))
       .filter(p => p.links.length > 0);
   }, [allPosts, debouncedSearch]);
 
