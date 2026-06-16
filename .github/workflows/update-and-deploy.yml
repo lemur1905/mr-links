@@ -2,8 +2,12 @@ name: Update data and deploy
 
 on:
   schedule:
-    # Daily at 12:00 UTC. MR posts assorted links ~once/day; this picks them up.
-    - cron: "0 12 * * *"
+    # MR posts "assorted links" mostly 11am-1pm US Eastern (median ~12:09pm ET,
+    # latest ~2:40pm). That's ~15:00-18:00 UTC (EDT) / 16:00-19:00 UTC (EST).
+    # Poll hourly across 16:00-23:00 UTC so a new post goes live within ~1h
+    # year-round. Scheduled runs only rebuild/deploy when links.json actually
+    # changed (see the deploy gate below), so the extra runs are cheap no-ops.
+    - cron: "0 16-23 * * *"
   push:
     branches: [main]
   workflow_dispatch:
@@ -22,6 +26,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.decide.outputs.should_deploy }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -38,35 +44,54 @@ jobs:
         run: python scripts/build_data.py
 
       - name: Commit links.json if it changed
+        id: data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git diff --quiet -- public/links.json; then
             echo "No data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git add public/links.json
             git commit -m "data: update links.json [skip ci]"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Deploy on push/manual always; on a scheduled run only if data changed.
+      # Avoids pointless re-deploys when MR hasn't posted anything new.
+      - name: Decide whether to deploy
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ] || [ "${{ steps.data.outputs.changed }}" = "true" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Scheduled run with no new data; skipping build + deploy."
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Node
+        if: steps.decide.outputs.should_deploy == 'true'
         uses: actions/setup-node@v6
         with:
           node-version: "20"
           cache: npm
 
       - name: Install and build
+        if: steps.decide.outputs.should_deploy == 'true'
         run: |
           npm ci
           npm run build
 
       - name: Upload Pages artifact
+        if: steps.decide.outputs.should_deploy == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./build
 
   deploy:
     needs: build
+    if: needs.build.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
