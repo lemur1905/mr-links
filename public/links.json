@@ -1,5 +1,48 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/06/monday-assorted-links-565.html",
+    "post_date": "2026-06-22",
+    "title": "Monday assorted links",
+    "links": [
+      {
+        "title": "John Horton",
+        "url": "https://x.com/johnjhorton/status/2068684411403415994",
+        "link_number": 1,
+        "context": "1.John Horton: “The “literature” is going to become a collection of nodes/papers representing temporarily suspended computation with “citations” being contingent edges that describe how they sink uses the source; new data, better models & methodological changes will cause a Makefile-like cascading of update through the literature/graph. AI agents will autonomously add new edges + nodes.”"
+      },
+      {
+        "title": "The Royal Society for Blind Children and the National Deaf Children’s Society have both come out against the Starmer social media ban.",
+        "url": "https://x.com/prestonjbyrne/status/2066504679974920513?s=61",
+        "link_number": 2,
+        "context": "2. “The Royal Society for Blind Children and the National Deaf Children’s Society have both come out against the Starmer social media ban.”"
+      },
+      {
+        "title": "Persistently beneficial AI models",
+        "url": "https://cdn.openai.com/pdf/beneficial-rl.pdf",
+        "link_number": 3,
+        "context": "3.Persistently beneficial AI models.  Through general benevolence."
+      },
+      {
+        "title": "Concerns over therapy ferrets used to kill rats at UK’s largest children’s prison.",
+        "url": "https://www.theguardian.com/society/2026/jun/21/therapy-ferrets-kill-rats-uk-largest-children-prison-wetherby",
+        "link_number": 4,
+        "context": "4. “Concerns over therapy ferrets used to kill rats at UK’s largest children’s prison.”"
+      },
+      {
+        "title": "So you fly from Australia to London over the North Pole?",
+        "url": "https://x.com/_ZachGriff/status/2068662944301195662",
+        "link_number": 5,
+        "context": "5.So you fly from Australia to London over the North Pole?"
+      },
+      {
+        "title": "Will Burnham reverse “privatisation”?",
+        "url": "https://www.theguardian.com/politics/2026/jun/21/burnham-ally-to-unveil-ambitious-plan-to-reverse-decades-of-privatisation",
+        "link_number": 6,
+        "context": "6.Will Burnham reverse “privatisation”?"
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/06/sunday-assorted-links-572.html",
     "post_date": "2026-06-21",
     "title": "Sunday assorted links",
