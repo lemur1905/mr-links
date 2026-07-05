@@ -1,7 +1,13 @@
 # MR Links
 
-A searchable, scrollable archive of [Marginal Revolution](https://marginalrevolution.com)'s
+A searchable archive of [Marginal Revolution](https://marginalrevolution.com)'s
 daily "Assorted Links" posts. Live at **[mr.iankahn.net](https://mr.iankahn.net)**.
+
+I read MR daily, and I kept wanting to dig a link back up. Sometimes it was one
+I half-remembered from a few weeks ago; sometimes I wanted to see everything
+Tyler has linked on a topic over the years. MR can filter posts down to the
+assorted-links series, but it has no good way to search inside them. This site
+is that search box.
 
 The site is fully static, with no server and no database. A scheduled GitHub
 Action polls MR through its usual afternoon posting window and writes any new
@@ -21,9 +27,11 @@ React app  ──fetch('/links.json') once──▶  client-side search + pagina
 GitHub Actions (hourly cron, 16-23 UTC): build_data.py → commit links.json → npm build → deploy Pages
 ```
 
-Search is a case-insensitive substring match on link titles. Results are grouped by
-day, newest first, and each day shows only its matching links, with "load more"
-pagination.
+Search matches each link's title plus the paragraph text scraped from around it
+in the original post, so a half-remembered phrase usually finds the link even
+when the phrase never appears in the title. Matching is a case-insensitive
+substring. Results are grouped by day, newest first, and each day shows only its
+matching links, with "load more" pagination.
 
 ## Local development
 
