@@ -1,13 +1,7 @@
 # MR Links
 
-A searchable archive of [Marginal Revolution](https://marginalrevolution.com)'s
+A searchable, scrollable archive of [Marginal Revolution](https://marginalrevolution.com)'s
 daily "Assorted Links" posts. Live at **[mr.iankahn.net](https://mr.iankahn.net)**.
-
-I read MR daily, and I kept wanting to dig a link back up. Sometimes it was one
-I half-remembered from a few weeks ago; sometimes I wanted to see everything
-Tyler has linked on a topic over the years. MR can filter posts down to the
-assorted-links series, but it has no good way to search inside them. This site
-is that search box.
 
 The site is fully static, with no server and no database. A scheduled GitHub
 Action polls MR through its usual afternoon posting window and writes any new
