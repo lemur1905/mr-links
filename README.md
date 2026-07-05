@@ -4,8 +4,8 @@ A searchable, scrollable archive of [Marginal Revolution](https://marginalrevolu
 daily "Assorted Links" posts. Live at **[mr.iankahn.net](https://mr.iankahn.net)**.
 
 The site is fully static, with no server and no database. A scheduled GitHub
-Action polls MR through its usual afternoon posting window and writes any new
-links to `public/links.json`; the React app loads that file and does search and
+Action polls MR for new links several times a day and writes them to
+`public/links.json`; the React app loads that file and does search and
 pagination entirely in the browser.
 
 ## How it works
@@ -21,11 +21,10 @@ React app  ──fetch('/links.json') once──▶  client-side search + pagina
 GitHub Actions (hourly cron, 16-23 UTC): build_data.py → commit links.json → npm build → deploy Pages
 ```
 
-Search matches each link's title plus the paragraph text scraped from around it
-in the original post, so a half-remembered phrase usually finds the link even
-when the phrase never appears in the title. Matching is a case-insensitive
-substring. Results are grouped by day, newest first, and each day shows only its
-matching links, with "load more" pagination.
+Search is a case-insensitive substring match against each link's title and the
+paragraph text scraped from around it in the original post, so a query can match
+wording that does not appear in the title. Results are grouped by day, newest
+first, and each day shows only its matching links, with "load more" pagination.
 
 ## Local development
 
