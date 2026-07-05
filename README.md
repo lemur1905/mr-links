@@ -51,3 +51,7 @@ python scripts/build_data.py --full --max-pages 20
 
 The site is served from GitHub Pages. The same workflow that scrapes new links
 rebuilds and redeploys it when the data changes.
+
+## Credits
+
+Developed by Ian Kahn, using [Claude Code](https://claude.com/claude-code).
