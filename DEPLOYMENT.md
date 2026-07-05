@@ -1,8 +1,8 @@
 # Deployment: GitHub Pages (free)
 
 This site is a static React app served from GitHub Pages. A scheduled GitHub
-Action scrapes Marginal Revolution daily, commits the data into the repo, builds
-the app, and deploys it. There is no server and no database, so hosting is $0.
+Action polls Marginal Revolution for new links, commits the data into the repo,
+builds the app, and deploys it. There is no server and no database.
 
 ## One-time setup
 
@@ -27,22 +27,25 @@ shows the domain as verified and green, enable **Enforce HTTPS** in Settings →
 
 ## The workflow
 
-`.github/workflows/update-and-deploy.yml` runs on a daily cron (`0 12 * * *`), on
-push to `main`, and on manual dispatch. Each run:
+`.github/workflows/update-and-deploy.yml` runs on an hourly cron across MR's
+usual posting window (`0 16-23 * * *` UTC), on push to `main`, and on manual
+dispatch. Each run:
 
 1. Checks out the repo.
 2. Installs `scripts/requirements.txt` and runs `python scripts/build_data.py`
    (incremental RSS scrape).
 3. Commits `public/links.json` back if it changed (the store is self-healing and
    incremental). The commit message includes `[skip ci]` so it doesn't re-trigger.
-4. `npm ci && npm run build`.
-5. Deploys `build/` to Pages.
+4. Decides whether to deploy. Pushes and manual runs always deploy; a scheduled
+   run stops here unless the data changed, so the extra polls are cheap no-ops.
+5. `npm ci && npm run build`.
+6. Deploys `build/` to Pages.
 
 To trigger manually: Actions → "Update data and deploy" → "Run workflow".
 
 ## Backfilling history
 
-The cron only fetches recent posts (via RSS). To rebuild the full archive, run a
+The scheduled runs only fetch recent posts (via RSS). To rebuild the full archive, run a
 full scrape locally and commit the result.
 
 ```bash
@@ -53,9 +56,9 @@ git add public/links.json && git commit -m "data: full backfill" && git push
 
 ## Costs
 
-**$0/month.** GitHub Pages hosting is free for public repos; GitHub Actions daily
-cron is well within the free minutes allowance. The only cost is the `iankahn.net`
-domain registration (already owned).
+GitHub Pages hosting is free for public repos, and the scheduled Actions runs are
+well within the free minutes allowance. The only cost is the `iankahn.net` domain
+registration (already owned).
 
 ## Troubleshooting
 
@@ -65,4 +68,4 @@ domain registration (already owned).
 - If the custom domain won't verify, make sure the Cloudflare CNAME is **DNS only**
   (grey cloud), not proxied. Proxying blocks GitHub's cert issuance.
 - If `links.json` stops updating, confirm the workflow has `contents: write`
-  permission and that the daily run is succeeding.
+  permission and that the scheduled runs are succeeding.
