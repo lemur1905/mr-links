@@ -5,7 +5,7 @@ daily "Assorted Links" posts. Live at **[mr.iankahn.net](https://mr.iankahn.net)
 
 The site is fully static, with no server and no database. A scheduled GitHub
 Action polls MR for new links several times a day and writes them to
-`public/links.json`; the React app loads that file and does search and
+`public/links.json`. The React app loads that file and does search and
 pagination entirely in the browser.
 
 ## How it works
@@ -49,5 +49,5 @@ python scripts/build_data.py --full --max-pages 20
 - `scripts/` holds `build_data.py` plus the pure `scraper.py` and `rss_parser.py` it imports.
 - `.github/workflows/update-and-deploy.yml` runs the scheduled scrape, then builds and deploys when the data changed.
 
-The site is served from GitHub Pages; the same workflow that scrapes new links
+The site is served from GitHub Pages. The same workflow that scrapes new links
 rebuilds and redeploys it when the data changes.

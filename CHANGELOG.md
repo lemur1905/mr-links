@@ -4,7 +4,7 @@
 
 ### Summary
 Eliminated the backend. The app was a full-stack FastAPI + PostgreSQL +
-APScheduler service hosted on Railway; it is now a static site on GitHub Pages.
+APScheduler service hosted on Railway. It is now a static site on GitHub Pages.
 Data is pre-built into `public/links.json` and search runs in the browser.
 
 ### Changes Made
