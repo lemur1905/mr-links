@@ -9,15 +9,15 @@ that costs $0. Data is pre-built into `public/links.json` and search runs in the
 browser.
 
 ### Changes Made
-- **Added `scripts/build_data.py`** — builds `public/links.json` with no database.
-  Imports the pure `scraper.py` / `rss_parser.py` (copied into `scripts/`).
-  Incremental RSS update by default; `--full` does an HTML-scrape backfill.
-- **Frontend (`src/App.js`)** — now fetches `/links.json` once on mount and does
-  case-insensitive substring search on link titles + "load more" pagination
+- Added `scripts/build_data.py`, which builds `public/links.json` with no database.
+  It imports the pure `scraper.py` / `rss_parser.py` (copied into `scripts/`), does
+  an incremental RSS update by default, and does an HTML-scrape backfill with `--full`.
+- The frontend (`src/App.js`) now fetches `/links.json` once on mount and does
+  case-insensitive substring search on link titles plus "load more" pagination
   entirely client-side. Removed all `/api/...`, `API_URL`, `REACT_APP_API_URL`.
-- **Removed the server** — deleted `backend/`, `railway.json`, `migrate_to_postgres.py`,
+- Removed the server, deleting `backend/`, `railway.json`, `migrate_to_postgres.py`,
   and `.env.example` (backend-only vars).
-- **GitHub Pages config** — added `homepage` to `package.json`, `public/CNAME`
+- Configured GitHub Pages by adding `homepage` to `package.json`, `public/CNAME`
   (`mr.iankahn.net`), and `.github/workflows/update-and-deploy.yml` (daily scrape →
   commit JSON → build → deploy).
 - Rewrote `README.md` and `DEPLOYMENT.md` for the static architecture.
@@ -25,7 +25,7 @@ browser.
 ## 2026-01-03: Full Year Scraping Update
 
 ### Summary
-Enhanced the scraper to support scraping a full year of "Assorted Links" posts from Marginal Revolution.
+Extended the scraper so it can pull a full year of "Assorted Links" posts from Marginal Revolution.
 
 ### Changes Made
 
@@ -42,9 +42,9 @@ Enhanced the scraper to support scraping a full year of "Assorted Links" posts f
 
 ### Test Results
 Ran scrape with 30 pages:
-- **420 posts scraped** (covers full year of daily posts)
-- **2,953 links extracted**
-- **Runtime: ~12 minutes**
+- 420 posts scraped (covers a full year of daily posts)
+- 2,953 links extracted
+- Runtime: ~12 minutes
 
 ### Usage
 ```bash

@@ -2,7 +2,7 @@
 
 This site is a static React app served from GitHub Pages. A scheduled GitHub
 Action scrapes Marginal Revolution daily, commits the data into the repo, builds
-the app, and deploys it. There is no server and no database — hosting is $0.
+the app, and deploys it. There is no server and no database, so hosting is $0.
 
 ## One-time setup
 
@@ -16,7 +16,7 @@ Settings → Pages → **Source: GitHub Actions**. (The workflow uses the offici
 
 ### 3. Custom domain
 `public/CNAME` already contains `mr.iankahn.net`, so the custom domain re-applies
-on every deploy. In **Cloudflare DNS** for `iankahn.net`, add:
+on every deploy. In **Cloudflare DNS** for `iankahn.net`, add the record below.
 
 ```
 CNAME   mr   →   lemur1905.github.io      (DNS only / grey cloud — NOT proxied)
@@ -42,8 +42,8 @@ To trigger manually: Actions → "Update data and deploy" → "Run workflow".
 
 ## Backfilling history
 
-The cron only fetches recent posts (via RSS). To (re)build the full archive, run a
-full scrape locally and commit the result:
+The cron only fetches recent posts (via RSS). To rebuild the full archive, run a
+full scrape locally and commit the result.
 
 ```bash
 pip install -r scripts/requirements.txt
@@ -59,10 +59,10 @@ domain registration (already owned).
 
 ## Troubleshooting
 
-- **Empty site / no links**: check the latest Actions run logs. If MR changed its
-  HTML/RSS format, `build_data.py` will scrape 0 links — verify selectors in
+- If the site comes up empty, check the latest Actions run logs. If MR changed its
+  HTML or RSS format, `build_data.py` will scrape 0 links; check the selectors in
   `scripts/scraper.py`.
-- **Custom domain not verifying**: ensure the Cloudflare CNAME is **DNS only**
+- If the custom domain won't verify, make sure the Cloudflare CNAME is **DNS only**
   (grey cloud), not proxied. Proxying blocks GitHub's cert issuance.
-- **`links.json` not updating**: confirm the workflow has `contents: write`
+- If `links.json` stops updating, confirm the workflow has `contents: write`
   permission and that the daily run is succeeding.

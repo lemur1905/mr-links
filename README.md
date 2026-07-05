@@ -3,9 +3,10 @@
 A searchable, scrollable archive of [Marginal Revolution](https://marginalrevolution.com)'s
 daily "Assorted Links" posts. Live at **[mr.iankahn.net](https://mr.iankahn.net)**.
 
-This is a **fully static site** — no server, no database, $0 hosting. A scheduled
-GitHub Action scrapes MR once a day, writes the data to `public/links.json`, and the
-React app loads that file and does search/pagination entirely in the browser.
+The site is fully static. There is no server and no database, so hosting costs $0.
+A scheduled GitHub Action scrapes MR once a day and writes the data to
+`public/links.json`; the React app loads that file and does search and pagination
+entirely in the browser.
 
 ## How it works
 
@@ -20,8 +21,9 @@ React app  ──fetch('/links.json') once──▶  client-side search + pagina
 GitHub Actions (daily cron): build_data.py → commit links.json → npm build → deploy Pages
 ```
 
-Search is a case-insensitive substring match on link titles, results grouped by day
-(newest first), showing only matching links within each day, with "load more" pagination.
+Search is a case-insensitive substring match on link titles. Results are grouped by
+day, newest first, and each day shows only its matching links, with "load more"
+pagination.
 
 ## Local development
 
@@ -40,10 +42,10 @@ python scripts/build_data.py --full --max-pages 20
 
 ## Project layout
 
-- `src/` — the React app (Create React App).
-- `public/links.json` — the data store; committed and served as-is.
-- `public/CNAME` — custom domain (`mr.iankahn.net`) for GitHub Pages.
-- `scripts/` — `build_data.py` plus the pure `scraper.py` / `rss_parser.py` it imports.
-- `.github/workflows/update-and-deploy.yml` — daily scrape + build + deploy.
+- `src/` is the React app (Create React App).
+- `public/links.json` is the data store, committed and served as-is.
+- `public/CNAME` sets the custom domain (`mr.iankahn.net`) for GitHub Pages.
+- `scripts/` holds `build_data.py` plus the pure `scraper.py` and `rss_parser.py` it imports.
+- `.github/workflows/update-and-deploy.yml` runs the daily scrape, then builds and deploys.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for hosting and DNS setup.
