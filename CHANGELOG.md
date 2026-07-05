@@ -1,12 +1,11 @@
 # Changelog
 
-## 2026-06-16: Convert to free static site
+## 2026-06-16: Convert to static site
 
 ### Summary
-Eliminated the paid backend. The app was a full-stack FastAPI + PostgreSQL +
-APScheduler service (~$5/mo on Railway); it is now a static site on GitHub Pages
-that costs $0. Data is pre-built into `public/links.json` and search runs in the
-browser.
+Eliminated the backend. The app was a full-stack FastAPI + PostgreSQL +
+APScheduler service hosted on Railway; it is now a static site on GitHub Pages.
+Data is pre-built into `public/links.json` and search runs in the browser.
 
 ### Changes Made
 - Added `scripts/build_data.py`, which builds `public/links.json` with no database.
