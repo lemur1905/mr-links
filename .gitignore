@@ -46,3 +46,6 @@ backend/*.db-journal
 
 # Design exploration mockups — local scratch, never shipped or published
 /explorations/
+
+# Vendored theme repos kept locally as design reference, not published
+/Theme references/
