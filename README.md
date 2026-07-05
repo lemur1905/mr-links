@@ -50,4 +50,5 @@ python scripts/build_data.py --full --max-pages 20
 - `scripts/` holds `build_data.py` plus the pure `scraper.py` and `rss_parser.py` it imports.
 - `.github/workflows/update-and-deploy.yml` runs the scheduled scrape, then builds and deploys when the data changed.
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for hosting and DNS setup.
+The site is served from GitHub Pages; the same workflow that scrapes new links
+rebuilds and redeploys it when the data changes.
