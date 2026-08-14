@@ -1,5 +1,54 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/08/friday-assorted-links-585.html",
+    "post_date": "2026-08-14",
+    "title": "Friday assorted links",
+    "links": [
+      {
+        "title": "What sort of maths are LLMs good at?",
+        "url": "https://gowers.wordpress.com/2026/08/12/what-sort-of-maths-are-llms-good-at/",
+        "link_number": 1,
+        "context": "1.What sort of maths are LLMs good at?"
+      },
+      {
+        "title": "(NYT",
+        "url": "https://www.nytimes.com/2026/08/09/style/olivia-ferney-top-tier-travel.html?algo=lda_excl_sensitive_headline_tags&block=8&campaign_id=142&emc=edit_fory_20260812&fellback=false&imp_id=249596541630597&instance_id=180243&nl=for-you&nlid=168807750&rank=1&regi_id=168807750&req_id=2118894663316041&segment_id=224628&surface=for-you-email-subject-line-algo&user_id=77dddeadf63367909fe4e3e3e981873f&variant=0_lda",
+        "link_number": 2,
+        "context": "2. “People think the superrich are unhappy,” she said. “They’re not.”(NYT)"
+      },
+      {
+        "title": "Trailer for a Celibadache biopic",
+        "url": "https://www.youtube.com/watch?v=2PypbMOUULA",
+        "link_number": 3,
+        "context": "3.Trailer for a Celibadache biopic."
+      },
+      {
+        "title": "Good Joshua Saxe post on the need for a better cybersecurity policy",
+        "url": "https://substack.com/home/post/p-210988587",
+        "link_number": 4,
+        "context": "4.Good Joshua Saxe post on the need for a better cybersecurity policy."
+      },
+      {
+        "title": "Refine goes to work on the Stanford Encyclopedia of Philosophy",
+        "url": "https://x.com/ben_golub/status/2087755449441399169",
+        "link_number": 5,
+        "context": "5.Refine goes to work on the Stanford Encyclopedia of Philosophy.  At some point we will be reexamining everything, good luck people."
+      },
+      {
+        "title": "A semi-consistent EA view that nuclear energy is bad",
+        "url": "https://x.com/LeRoyDesCimes/status/2087641174626726170",
+        "link_number": 6,
+        "context": "6.A semi-consistent EA view that nuclear energy is bad(not my view though)."
+      },
+      {
+        "title": "Updated AI and labor market results",
+        "url": "https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/",
+        "link_number": 7,
+        "context": "7.Updated AI and labor market results, and a summaryhere."
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/08/thursday-assorted-links-565.html",
     "post_date": "2026-08-13",
     "title": "Thursday assorted links",
