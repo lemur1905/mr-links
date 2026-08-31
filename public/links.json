@@ -1,5 +1,48 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/08/monday-assorted-links-575.html",
+    "post_date": "2026-08-31",
+    "title": "Monday assorted links",
+    "links": [
+      {
+        "title": "Prices, prices, prices",
+        "url": "https://x.com/jon_stokes/status/2094288737005871123",
+        "link_number": 1,
+        "context": "1.Prices, prices, prices: “Again I am asking how the following two things can be true at the same time: 1) we’re all massively compute limited so inferences & GPU time are $$$$$, and 2) SoTA models will just start running themselves on everyone’s GPU clusters & no one will notice or turn them off.”  From Jon Stokes."
+      },
+      {
+        "title": "Christian Catalini on incentives and the same",
+        "url": "https://x.com/ccatalini/status/2094121167091318902",
+        "link_number": 2,
+        "context": "2.Christian Catalini on incentives and the same."
+      },
+      {
+        "title": "Ben Yeoh on unconferences",
+        "url": "https://benyeoh.substack.com/p/you-dont-know-who-you-need-to-meet",
+        "link_number": 3,
+        "context": "3.Ben Yeoh on unconferences."
+      },
+      {
+        "title": "The ten best philosophy articles of the year?",
+        "url": "https://dailynous.com/2026/08/30/philosophers-annual-for-2025/",
+        "link_number": 4,
+        "context": "4.The ten best philosophy articles of the year?"
+      },
+      {
+        "title": "Syracuse University, an R1 institution, is in serious financial trouble",
+        "url": "https://www.wsj.com/us-news/education/syracuse-student-application-enrollment-crisis-budget-ff142896",
+        "link_number": 5,
+        "context": "5.Syracuse University, an R1 institution, is in serious financial trouble(WSJ)."
+      },
+      {
+        "title": "Markets in gene-edited dogs?",
+        "url": "https://www.nytimes.com/2026/08/31/science/dog-breeding-gene-editing-crispr.html",
+        "link_number": 6,
+        "context": "6.Markets in gene-edited dogs?(NYT)"
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/08/sunday-assorted-links-582.html",
     "post_date": "2026-08-30",
     "title": "Sunday assorted links",
