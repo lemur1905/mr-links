@@ -1,5 +1,48 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/10/saturday-assorted-links-581.html",
+    "post_date": "2026-10-03",
+    "title": "Saturday assorted links",
+    "links": [
+      {
+        "title": "Rewarding failure",
+        "url": "https://academic.oup.com/jleo/advance-article/doi/10.1093/jleo/ewag025/8825349",
+        "link_number": 1,
+        "context": "1.Rewarding failure?"
+      },
+      {
+        "title": "An excellent Brian Potter explainer on how matrix algebra is used in both LLMs and robotics",
+        "url": "https://www.construction-physics.com/p/understanding-the-ai-that-drives?utm_source=post-email-title&publication_id=104058&post_id=218269589&utm_campaign=email-post-title&isFreemail=true&r=3o9&triedRedirect=true&utm_medium=email",
+        "link_number": 2,
+        "context": "2.An excellent Brian Potter explainer on how matrix algebra is used in both LLMs and robotics."
+      },
+      {
+        "title": "Chat with Mircea Cărtărescu",
+        "url": "https://www.amsterdamreview.org/the-moumlbius-strip-of-reality-and-dream.html",
+        "link_number": 3,
+        "context": "3.Chat with Mircea Cărtărescu."
+      },
+      {
+        "title": "It seems the expansion of remote work reduced births?",
+        "url": "https://x.com/acjohnston0/status/2105704069461651942",
+        "link_number": 4,
+        "context": "4.It seems the expansion of remote work reduced births?"
+      },
+      {
+        "title": "Living Science uses an AI agent to reproduce key findings from seminal papers in economics, document what holds up and extend the analysis with newer data",
+        "url": "https://x.com/heimbergecon/status/2105881619618029946",
+        "link_number": 5,
+        "context": "5. “Living Science uses an AI agent to reproduce key findings from seminal papers in economics, document what holds up and extend the analysis with newer data.”"
+      },
+      {
+        "title": "Joshua Rothman on Garicano’s Messy Jobs",
+        "url": "https://www.newyorker.com/culture/open-questions/will-ai-still-take-our-jobs",
+        "link_number": 6,
+        "context": "6.Joshua Rothman on Garicano’s Messy Jobs(New Yorker)."
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/10/friday-assorted-links-593.html",
     "post_date": "2026-10-02",
     "title": "Friday assorted links",
