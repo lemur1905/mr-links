@@ -1,5 +1,42 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/10/wednesday-assorted-links-574.html",
+    "post_date": "2026-10-07",
+    "title": "Wednesday assorted links",
+    "links": [
+      {
+        "title": "Palo Alto Networks",
+        "url": "https://www.bloomberg.com/quote/PANW:US",
+        "link_number": 1,
+        "context": "1.Palo Alto Networks(cybersecurity firm, check out YTD)."
+      },
+      {
+        "title": "OAI doing math again",
+        "url": "https://github.com/openai/math",
+        "link_number": 2,
+        "context": "2.OAI doing math again.Quasi-Riemann!  Andjust one metric of import."
+      },
+      {
+        "title": "The AI agents pitching literary magazines",
+        "url": "https://bookgossip.substack.com/p/the-ai-agents-pitching-lit-mags-to?r=1g4uc&utm_medium=ios",
+        "link_number": 3,
+        "context": "3.The AI agents pitching literary magazines."
+      },
+      {
+        "title": "Rude AI video about Europe",
+        "url": "https://x.com/Jon_Hartley_/status/2107642021816967583?s=20",
+        "link_number": 5,
+        "context": "5.Rude AI video about Europe."
+      },
+      {
+        "title": "Power constraints and the productivity slowdown",
+        "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7567438",
+        "link_number": 6,
+        "context": "6.Power constraints and the productivity slowdown."
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/10/tuesday-assorted-links-589.html",
     "post_date": "2026-10-06",
     "title": "Tuesday assorted links",
