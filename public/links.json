@@ -1,5 +1,54 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/monday-assorted-links-584.html",
+    "post_date": "2026-11-02",
+    "title": "Monday assorted links",
+    "links": [
+      {
+        "title": "Why is it now so common to be asked about your food allergies?",
+        "url": "https://chatgpt.com/share/6ae29260-07ec-83ea-af63-918e139a0bc7",
+        "link_number": 1,
+        "context": "1.Why is it now so common to be asked about your food allergies?(GPT Pro answer)"
+      },
+      {
+        "title": "Training for alignment, applies principal-agent theory",
+        "url": "https://economics.mit.edu/sites/default/files/inline-files/Alignment%20October%202026.pdf",
+        "link_number": 2,
+        "context": "2.Training for alignment, applies principal-agent theory."
+      },
+      {
+        "title": "Do people offload empathy when they think AI can give it instead?",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0747563226003377",
+        "link_number": 3,
+        "context": "3.Do people offload empathy when they think AI can give it instead?"
+      },
+      {
+        "title": "The Wallace line",
+        "url": "https://x.com/theiaincameron/status/2115699655568965980",
+        "link_number": 4,
+        "context": "4.The Wallace line."
+      },
+      {
+        "title": "AI can draw blueprints now",
+        "url": "https://stephenjgallagher.substack.com/p/ai-can-draw-blueprints-now",
+        "link_number": 5,
+        "context": "5.AI can draw blueprints now."
+      },
+      {
+        "title": "Ed Glaeser review of the new book Property Values",
+        "url": "https://www.wsj.com/arts-culture/books/property-values-review-paving-paradise-42890219",
+        "link_number": 6,
+        "context": "6.Ed Glaeser review of the new book Property Values(WSJ)."
+      },
+      {
+        "title": "Nicholas Decker on Bill Nordhaus",
+        "url": "https://nicholasdecker.substack.com/p/bill-nordhaus-1941-2026?utm_source=post-email-title&publication_id=747616&post_id=223005701&utm_campaign=email-post-title&isFreemail=true&r=3o9&triedRedirect=true&utm_medium=email",
+        "link_number": 7,
+        "context": "7.Nicholas Decker on Bill Nordhaus."
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/sunday-assorted-links-588.html",
     "post_date": "2026-11-01",
     "title": "Sunday assorted links",
