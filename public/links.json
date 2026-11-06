@@ -1,5 +1,54 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/friday-assorted-links-598.html",
+    "post_date": "2026-11-06",
+    "title": "Friday assorted links",
+    "links": [
+      {
+        "title": "What will happen with Texas data centers?",
+        "url": "https://x.com/level39/status/2118015175622369503",
+        "link_number": 1,
+        "context": "1.What will happen with Texas data centers?Andmore on that."
+      },
+      {
+        "title": "What is the half life of a claim about LLMs?",
+        "url": "https://zou-group.github.io/llm-claims-shelf-life/",
+        "link_number": 2,
+        "context": "2.What is the half life of a claim about LLMs?"
+      },
+      {
+        "title": "YouTube video created by AI",
+        "url": "https://www.youtube.com/watch?v=MSWLrRlXULw",
+        "link_number": 3,
+        "context": "3.YouTube video created by AI.  Titled Der Zauberberg."
+      },
+      {
+        "title": "Data centers tend to be put in places with relatively flat supply curves",
+        "url": "https://celhai.github.io/pdfs/Elhai_Zhou_data_centers.pdf",
+        "link_number": 4,
+        "context": "4.Data centers tend to be put in places with relatively flat supply curves."
+      },
+      {
+        "title": "NYT",
+        "url": "https://www.nytimes.com/2026/11/05/opinion/teen-mental-health.html",
+        "link_number": 5,
+        "context": "5. “According to Twenge, one of the great Cassandras of teen mental health in America, the current trajectory is now best described as a “longstanding trend in improvement.”” (NYT)"
+      },
+      {
+        "title": "ANC now a minority party",
+        "url": "https://www.ft.com/content/810c4f31-d3dd-43d7-acc0-c75adf42607b?syn-25a6b1a6=1",
+        "link_number": 6,
+        "context": "6.ANC now a minority party(FT, David Pilling)."
+      },
+      {
+        "title": "Gelman on the election results",
+        "url": "https://statmodeling.stat.columbia.edu/2026/11/05/could-the-2026-election-results-lead-to-a-decrease-in-political-polarization/",
+        "link_number": 7,
+        "context": "7.Gelman on the election results."
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/thursday-assorted-links-577.html",
     "post_date": "2026-11-05",
     "title": "Thursday assorted links",
