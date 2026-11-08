@@ -1,5 +1,66 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/sunday-assorted-links-589.html",
+    "post_date": "2026-11-08",
+    "title": "Sunday assorted links",
+    "links": [
+      {
+        "title": "Among the Wagner fanatics",
+        "url": "https://www.lrb.co.uk/the-paper/v48/n20/rosa-lyster/diary?ref=thebrowser.com",
+        "link_number": 1,
+        "context": "1.Among the Wagner fanatics."
+      },
+      {
+        "title": "Does AI instead commodify jobs?",
+        "url": "https://x.com/JonSteinsson/status/2118804376727015660",
+        "link_number": 2,
+        "context": "2.Does AI instead commodify jobs?"
+      },
+      {
+        "title": "The digital world is making Islam more diverse",
+        "url": "https://www.economist.com/international/2026/11/05/the-digital-world-is-making-islam-more-diverse",
+        "link_number": 3,
+        "context": "3.The digital world is making Islam more diverse(The Economist)."
+      },
+      {
+        "title": "An affair with an economist exposed the calculus of modern dating.",
+        "url": "https://www.newyorker.com/culture/the-weekend-essay/good-enough-for-a-tuesday-night?utm_mailing=tny_nl_6667_daily_110726_nxil8ricp4&utm_source=nl&utm_brand=tny&utm_campaign=aud-dev&utm_medium=email&utm_content=tny_nl_6667_daily_110726_nxil8ricp4&cndid=22300418&utm_term=6667",
+        "link_number": 4,
+        "context": "4. “An affair with an economist exposed the calculus of modern dating.” (New Yorker)"
+      },
+      {
+        "title": "How Much Economic Value Do AI Systems Produce per Unit of Energy?",
+        "url": "https://arxiv.org/abs/2610.30858",
+        "link_number": 5,
+        "context": "5. “How Much Economic Value Do AI Systems Produce per Unit of Energy?”"
+      },
+      {
+        "title": "John Gray will be writing a column for Unherd",
+        "url": "https://x.com/freddiesayers/status/2118997180023226754?a=_vijadzck89dWirEXns&s=46",
+        "link_number": 6,
+        "context": "6.John Gray will be writing a column for Unherd."
+      },
+      {
+        "title": "How France took over basketball",
+        "url": "https://www.newyorker.com/culture/the-lede/how-france-took-over-basketball?utm_mailing=tny_nl_6667_daily_110726_nxil8ricp4&utm_source=nl&utm_brand=tny&utm_campaign=aud-dev&utm_medium=email&utm_content=tny_nl_6667_daily_110726_nxil8ricp4&cndid=22300418&utm_term=6667",
+        "link_number": 7,
+        "context": "7.How France took over basketball(New Yorker)."
+      },
+      {
+        "title": "If existing AI capabilities are widely adopted, they could double research output in some fields.",
+        "url": "https://www.anthropic.com/research/how-researchers-use-claude",
+        "link_number": 8,
+        "context": "8. “If existing AI capabilities are widely adopted, they could double research output in some fields.”"
+      },
+      {
+        "title": "Canvas is why students prefer AI over you.",
+        "url": "https://hollisrobbinsanecdotal.substack.com/p/you-are-protesting-the-wrong-technology?utm_source=post-email-title&publication_id=1004053&post_id=223915338&utm_campaign=email-post-title&isFreemail=true&r=3o9&triedRedirect=true&utm_medium=email",
+        "link_number": 9,
+        "context": "9. “Canvas is why students prefer AI over you.“"
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/saturday-assorted-links-585.html",
     "post_date": "2026-11-07",
     "title": "Saturday assorted links",
