@@ -1,5 +1,48 @@
 [
   {
+    "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/tuesday-assorted-links-596.html",
+    "post_date": "2026-11-24",
+    "title": "Tuesday assorted links",
+    "links": [
+      {
+        "title": "On language models writing their own weights",
+        "url": "https://arxiv.org/abs/2611.21885",
+        "link_number": 1,
+        "context": "1.On language models writing their own weights."
+      },
+      {
+        "title": "“The Banksy of NBA media”?",
+        "url": "https://www.theringer.com/2026/11/11/nba/bob-windrem-netsdaily-brooklyn-nets-blogger",
+        "link_number": 2,
+        "context": "2.“The Banksy of NBA media”?"
+      },
+      {
+        "title": "Astra solves a historical mystery",
+        "url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+        "link_number": 3,
+        "context": "3.Astra solves a historical mystery."
+      },
+      {
+        "title": "Some new Indian architecture",
+        "url": "https://www.archdaily.com/1039162/prestige-university-sanjay-puri-architects",
+        "link_number": 4,
+        "context": "4.Some new Indian architecture.  Andmore from Bloomberg."
+      },
+      {
+        "title": "The Icelandic tradition of liberty",
+        "url": "https://www.theconservative.online/the-icelandic-tradition-of-liberty",
+        "link_number": 5,
+        "context": "5.The Icelandic tradition of liberty."
+      },
+      {
+        "title": "Surprisingly though, data on real-world impacts of cyber attacks tells a less dire story.",
+        "url": "https://cset.georgetown.edu/article/judge-the-cyber-apocalypse-by-the-data-not-the-headlines/",
+        "link_number": 6,
+        "context": "6. “Surprisingly though, data on real-world impacts of cyber attacks tells a less dire story.“"
+      }
+    ]
+  },
+  {
     "post_url": "https://marginalrevolution.com/marginalrevolution/2026/11/monday-assorted-links-587.html",
     "post_date": "2026-11-23",
     "title": "Monday assorted links",
